@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Shopping Cart</h2>
+                <p> Your Shopping Cart is empty </p>
+                <a href="{% url "products:index" %}" class="btn btn-primary">Go Shopping!</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
