@@ -48,18 +48,18 @@
                         {% endfor %}
                         </tbody>
                     </table>
-
-                    <table class="table">
-                        <tr>
-                            <td width="50%"><br/><a href="{% url "products:index" %}" class="btn btn-primary">Continue
-                                Shopping</a></td>
-                            <td width="50%" class="text-right">
-                                <span class="cart-subtotal full-width inline-block"><strong
-                                        class="full-width">Subtotal:</strong> {{ cart.price_subtotal|floatformat }}</span>
-                                <a href="{% url "checkout:index" %}" class="btn btn-success">Checkout</a>
-                            </td>
-                        </tr>
-                    </table>
+                        <hr />
+                    <div class="row">
+                        <div class="col-sm-12">
+                             <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>  
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <a href="{% url "products:index" %}" class="btn btn-primary btn-lg">Continue Shopping</a>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <a href="{% url "checkout:index" %}" class="btn btn-success btn-lg pull-right">Checkout</a>
+                        </div>
+                    </div>
 
                 </div>
             </div>

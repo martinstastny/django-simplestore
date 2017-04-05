@@ -6,47 +6,60 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-sm-12 col-md-4">
-                <h3>Checkout</h3>
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h2>Checkout</h2>
+                </div>
             </div>
         </div>
 
         <div class="row">
+
             <form action="{{ request.path }}" method="post">
                 {% csrf_token %}
-                <div class="col-sm-12 col-md-6">
-                    <h4>Personal Details</h4>
-                    {{ order_form|crispy }}
-                </div>
-
-                <div class="col-sm-12 col-md-6">
-                    <h4>Delivery Details</h4>
-                    {{ address_form|crispy }}
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12 col-md-12 pull-left">
-                <h4>Order Review</h4>
-                {% for cart_item in cart.cartitem_set.all %}
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="{% url "products:detail" cart_item.product.slug %}">
-                                <img src="{% thumbnail cart_item.product.image 80x80 crop %}">
-                            </a>
-                        </div>
-                        <div class="media-body text-right">
-                            <h5 class="media-heading">{{ cart_item.product.name }}</h5>
-                            <strong>Quantity:</strong> {{ cart_item.quantity }} <br/>
-                            <strong>Total Price:</strong> {{ cart_item.total_price|floatformat }}
-                        </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="well">
+                        <legend>Billing Details</legend>
+                        {{ order_form|crispy }}
                     </div>
-                {% endfor %}
-                <br />
-                <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
-            </div>
+                    <div class="well">
+                        <legend>Delivery Details</legend>
+{#                        {{ address_form|crispy }}#}
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 ">
+                    <div class="well">
+                        <legend>Payment</legend>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 pull-right">
+                    <div class="well">
+                        <legend>Order Review</legend>
+                        {% for cart_item in cart.cartitem_set.all %}
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="{% url "products:detail" cart_item.product.slug %}">
+                                        <img src="{% thumbnail cart_item.product.image 80x80 crop %}">
+                                    </a>
+                                </div>
+                                <div class="media-body text-right">
+                                    <h5 class="media-heading">{{ cart_item.product.name }}</h5>
+                                    <strong>Quantity:</strong> {{ cart_item.quantity }} <br/>
+                                    <strong>Total Price:</strong> {{ cart_item.total_price|floatformat }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <br/>
+                        <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
+                        <br/>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Place my order</button>
+                    </div>
+
+                </div>
+
+            </form>
         </div>
 
     </div>

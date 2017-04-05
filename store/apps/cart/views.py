@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.views.generic import DeleteView, DetailView, FormView, View
+from django.views.generic import DeleteView, DetailView, FormView
 from django.core.urlresolvers import reverse_lazy
 from .models import Cart, CartItem
 from .mixins import get_cart
@@ -67,7 +67,7 @@ class AddToCartView(FormView):
         cart_item, cart_item_created = CartItem.objects.update_or_create(cart=cart, product=product)
 
         # If Cart item object has not been created  , amend quantity.
-        if cart_item_created == False:
+        if cart_item_created is False:
             cart_item.quantity += quantity
         else:
             cart_item.quantity = quantity
