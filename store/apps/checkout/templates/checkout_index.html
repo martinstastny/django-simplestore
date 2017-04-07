@@ -20,7 +20,7 @@
                 <div class="col-sm-12 col-md-4">
                     <div class="well">
                         <legend>Billing Details</legend>
-                        {{ order_form|crispy }}
+                        {{ form|crispy }}
                     </div>
                     <div class="well">
                         <legend>Delivery Details</legend>
@@ -54,8 +54,8 @@
                         <br/>
                         <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
                         <br/>
-                        <button type="submit" class="btn btn-success btn-lg btn-block">Place my order</button>
                     </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Place my order</button>
 
                 </div>
 
