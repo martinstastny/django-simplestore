@@ -1,6 +1,5 @@
 from django import forms
 from .models import Profile
-from django.utils.translation import ugettext_lazy as _
 
 class RegistrationForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.widgets.EmailInput)
@@ -12,8 +11,6 @@ class RegistrationForm(forms.ModelForm):
         fields = ['name', 'surname', 'email', 'password1', 'password2']
 
     def clean(self):
-        cleaned_data = super(RegistrationForm, self).clean()
-
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
                 raise forms.ValidationError("Passwords do not match")

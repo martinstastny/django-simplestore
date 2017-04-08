@@ -28,20 +28,23 @@ class CheckoutTests(TestCase):
 
         cls.test_product.save()
 
-    def _create_testing_cart(self, *args, **kwargs):
+    @staticmethod
+    def _create_testing_cart(*args, **kwargs):
         cart = Cart(created=datetime.datetime.now(), updated=datetime.datetime.now(), *args, **kwargs)
         cart.save()
 
         return cart
 
-    def _create_testing_cart_item(self, cart_instance, product_instance):
+    @staticmethod
+    def _create_testing_cart_item(cart_instance, product_instance):
         cart_item = CartItem(cart=cart_instance, product=product_instance, quantity=1,
                              date_added=datetime.datetime.now())
         cart_item.save()
 
         return cart_item
 
-    def _create_testing_order(self, cart, user, **kwargs):
+    @staticmethod
+    def _create_testing_order(cart, user):
         test_order = Order(
             cart=cart,
             user=user,
@@ -72,10 +75,9 @@ class CheckoutTests(TestCase):
 
         return user
 
-    """
+    '''
      Test when accessing /checkout url without items in cart will redirect back to cart
-    """
-
+    '''
     def test_access_checkout_url_with_empty_cart(self):
         session = self.client.session
         request = self.client.get(reverse('checkout:index'))
@@ -96,7 +98,7 @@ class CheckoutTests(TestCase):
         session = self.client.session
 
         test_cart = self._create_testing_cart()
-        test_item = self._create_testing_cart_item(cart_instance=test_cart, product_instance=self.test_product)
+        self._create_testing_cart_item(cart_instance=test_cart, product_instance=self.test_product)
         test_cart.session_key = session.session_key
         test_cart.save()
 
@@ -130,7 +132,6 @@ class CheckoutTests(TestCase):
     def test_order_item_string_representation(self):
         test_user = self._create_testing_user()
         test_cart = self._create_testing_cart()
-        test_cart_item = self._create_testing_cart_item(cart_instance=test_cart, product_instance=self.test_product)
         test_cart.save()
 
         test_order = self._create_testing_order(cart=test_cart, user=test_user)
@@ -144,7 +145,7 @@ class CheckoutTests(TestCase):
         test_order_item.save()
 
         self.assertEqual(str(test_order_item),
-                         "Order ID: {0} - {1}".format(test_order_item.id, test_order_item.product.name))
+                         "Order item: {0} - {1}".format(test_order_item.id, test_order_item.product.name))
 
     def test_order_item_get_total_price(self):
         test_order_item = OrderItem(price=1000, quantity=4)
