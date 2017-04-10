@@ -18,7 +18,6 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                # 'cart.context_processors.cart_count_processor',
             ],
             'loaders' : [
                 'django.template.loaders.filesystem.Loader',

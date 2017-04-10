@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse, resolve
-from products.models.product import Product, Category
+from products.models.product import Product
 from products.views import ProductsListView, ProductDetailView
 
 class ProductViewsTest(TestCase):
@@ -41,9 +41,7 @@ class ProductViewsTest(TestCase):
 
     # Products Category tests
 
-    """
-    Check if ProductList URL is matching correct view.
-    """
+    """Check if ProductList URL is matching correct view."""
     def test_products_list_resolves_to_product_list_view(self):
         product_list = resolve(self.product_list_url)
         self.assertEqual(product_list.func.__name__, ProductsListView.__name__)

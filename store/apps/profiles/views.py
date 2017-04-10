@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
 from .models import Profile
 from cart.models import Cart
-from cart.mixins import get_cart
 
 def profile_index(request):
     return render(request, "profile_index.html")
@@ -19,7 +18,7 @@ class ProfileDetail(DetailView):
     model = Profile
 
 # Registration Form
-class RegistrationForm(FormView):
+class RegistrationFormView(FormView):
     template_name = "profile_register.html"
     form_class = RegistrationForm
     success_url = reverse_lazy('products:index')
@@ -28,9 +27,9 @@ class RegistrationForm(FormView):
         self.profile = form.save()
         self.request.session['user_cart'] = self.request.session.session_key
         user = authenticate(email=self.profile.email, password=self.request.POST['password1'])
-        messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully loged in')
+        messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully logged in')
         login(self.request, user)
-        return super(RegistrationForm, self).form_valid(form)
+        return super(RegistrationFormView, self).form_valid(form)
 
 
 class UpdateProfileForm(UpdateView):
@@ -46,11 +45,8 @@ class AuthenticationForm(FormView):
     success_url = reverse_lazy('products:index')
 
     def form_valid(self, form):
-        try:
-            cart = Cart.objects.get(session_key=self.request.session.session_key)
-        except:
-            cart = None
 
+        cart = Cart.objects.get(session_key=self.request.session.session_key)
         user = authenticate(email=self.request.POST['email'], password=self.request.POST['password'])
 
         if user is not None and user.is_active:

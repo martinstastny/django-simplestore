@@ -77,7 +77,6 @@ class CartViewsTests(TestCase):
         request.session = session
 
         testing_cart = self._create_testing_cart()
-        cart_item = self._create_testing_cart_item(cart_instance=testing_cart, product_instance=self.test_product)
         testing_cart.session_key = request.session['user_cart']
         testing_cart.user = request.user
         testing_cart.save()
@@ -91,7 +90,6 @@ class CartViewsTests(TestCase):
         session = self.client.session
 
         testing_cart = self._create_testing_cart()
-        cart_item = self._create_testing_cart_item(cart_instance=testing_cart, product_instance=self.test_product)
         testing_cart.session_key = session.session_key
         testing_cart.save()
 
@@ -179,9 +177,6 @@ class CartViewsTests(TestCase):
         self.assertEqual(cart_item.quantity, 2)
 
     def test_adding_item_to_cart_as_anonymous_user(self):
-        cart = self._create_testing_cart()
-        cart_item = self._create_testing_cart_item(cart_instance=cart, product_instance=self.test_product)
-
         response = self.client.post(reverse('cart:add', kwargs={'product_id': self.test_product.id}),
                                     data={'quantity': 2}, follow=True)
 
@@ -203,7 +198,6 @@ class CartViewsTests(TestCase):
         response.user = test_user
 
         cart, created = Cart.objects.get_or_create(session_key=response.session['user_cart'], user=response.user)
-        cart_item, cart_item_created = CartItem.objects.update_or_create(cart=cart, product=self.test_product)
         cart.save()
 
         self.assertRedirects(response, '/cart/', 302)
