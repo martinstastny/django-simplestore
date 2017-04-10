@@ -25,11 +25,17 @@ class CheckoutOrderCreateView(CreateView):
     def form_valid(self, form):
         order = form.save(commit=False)
         order.cart = self.get_object()
-        order.save()
 
+        if self.request.user.is_authenticated():
+            order.user = self.request.user
+
+        order.save()
         order.create_order_items()
 
-        self.request.session.create()
+        try:
+            del self.request.session['user_cart']
+        except KeyError:
+            self.request.session.create()
 
         return redirect(order.get_absolute_url())
 
