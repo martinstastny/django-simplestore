@@ -1,0 +1,45 @@
+.main-content{
+    padding-top: 80px;
+}
+
+.product-box:hover{
+    text-decoration: none;
+}
+
+.product-box h2{
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+
+.product-box p{
+    margin-bottom: 5px;
+}
+
+.full-width{
+    width:100%;
+}
+
+.vertical-align-md{
+    vertical-align: middle!important;
+}
+
+.cart-list td{
+    vertical-align: middle!important;
+}
+
+.product-quantity{
+    margin-bottom: 30px;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.btn{
+    text-transform: none!important;
+}
+.btn a:hover{
+    text-transform: none!important;
+    text-decoration: none!important;
+}
