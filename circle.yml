@@ -1,3 +1,9 @@
 machine:
   python:
     version: 3.6.1
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: django-simple-ecommerce
