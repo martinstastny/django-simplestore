@@ -4,7 +4,7 @@ machine:
 
 test:
   override:
-    - python ./manage.py test
+    - python ./manage.py test --settings=store.settings.test
 
 deployment:
   staging:

@@ -7,7 +7,7 @@ _tmp
 
 media
 
-
+staticfiles
 store/static/bower_components
 store/static/css
 htmlcov
