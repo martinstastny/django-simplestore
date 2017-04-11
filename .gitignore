@@ -17,3 +17,4 @@ gulpfile.coffee
 store/settings/production.py
 store/static/media
 src/staticfiles
+/coverage.xml
