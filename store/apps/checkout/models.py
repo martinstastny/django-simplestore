@@ -7,7 +7,7 @@ from django.conf import settings
 
 
 class Order(models.Model):
-    cart = models.ForeignKey(Cart)
+    cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     full_name = models.CharField(max_length=120)
     email = models.EmailField()
@@ -33,8 +33,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items')
-    product = models.ForeignKey(Product, related_name='order_items')
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.DO_NOTHING)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)

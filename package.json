@@ -1,0 +1,23 @@
+{
+  "name": "django-store",
+  "version": "1.0.0",
+  "description": "Simple and tested app that can be taken as a starting point for extending and building custom ecommerce site with Python / Django.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower cache clean && bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinstastny/django-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinstastny/django-store/issues"
+  },
+  "homepage": "https://github.com/martinstastny/django-store#readme",
+  "dependencies": {
+    "bower": "^1.8.0"
+  }
+}

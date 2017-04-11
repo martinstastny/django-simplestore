@@ -23,18 +23,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'profiles',
     'easy_thumbnails',
     'filer',
     'mptt',
     'crispy_forms',
-    'profiles',
+    'storages',
     'products',
     'cart',
     'checkout',
@@ -91,7 +92,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 TEMPLATES = [
     {

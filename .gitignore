@@ -7,14 +7,11 @@ _tmp
 
 media
 
-staticfiles
 store/static/bower_components
-store/static/css
+
 htmlcov
-gulp
-gulpfile.coffee
 
 store/settings/production.py
-store/static/media
-src/staticfiles
+
 /coverage.xml
+/node_modules/

@@ -12,13 +12,14 @@ MIDDLEWARE_CLASSES += (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'catcaves',
+        'NAME': 'django_simple_ecommerce',
         'HOST': '127.0.0.1',
         'USER': '',
         'PASSWORD': '',
         'PORT': '5432'
     }
 }
+
 
 INSTALLED_APPS += (
     'debug_toolbar',

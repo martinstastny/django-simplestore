@@ -41,7 +41,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="{% url "products:detail" cart_item.product.slug %}">
-                                        <img src="{% thumbnail cart_item.product.image 80x80 crop %}">
+                                        <img src="{% thumbnail cart_item.product.image 50x50 crop %}">
                                     </a>
                                 </div>
                                 <div class="media-body text-right">
@@ -55,7 +55,7 @@
                         <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
                         <br/>
                     </div>
-                        <button type="submit" class="btn btn-success btn-lg btn-block">Place my order</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Place my order</button>
 
                 </div>
 
