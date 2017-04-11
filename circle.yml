@@ -2,6 +2,10 @@ machine:
   python:
     version: 3.6.1
 
+test:
+  override:
+    - python ./manage.py test
+
 deployment:
   staging:
     branch: master
