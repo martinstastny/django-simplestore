@@ -1,9 +1,9 @@
 from .base import *
 
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
 
 DEBUG = True
 
@@ -18,6 +18,18 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+MIDDLEWARE_CLASSES = [
+    'whitenoise.middleware.WhiteNoiseMiddleware'
+]
+
 
 ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0']
+
+# AWS Settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_QUERYSTRING_AUTH = False
+AWS_STORAGE_BUCKET_NAME = 'martinsteststorage'
+AWS_ACCESS_KEY_ID = 'AKIAIDJ3JPUOFTNEIOUA'
+AWS_SECRET_ACCESS_KEY = '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'

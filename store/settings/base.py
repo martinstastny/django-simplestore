@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'filer',
     'mptt',
     'crispy_forms',
+    'storages',
     'profiles',
     'products',
     'cart',
@@ -91,7 +92,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 TEMPLATES = [
     {
