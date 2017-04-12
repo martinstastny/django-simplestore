@@ -4,6 +4,7 @@ from cart.forms import AddToCartForm
 
 class ProductsListView(ListView):
     model = Product
+    queryset = Product.objects.prefetch_related('image')
     template_name = "product_list.html"
 
 class ProductDetailView(DetailView):

@@ -3,22 +3,22 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
-            {% for object in object_list %}
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                    <a class="product-box" href="{% url "products:detail" object.slug %}">
-                        <div class="thumbnail">
+        <div class="row products-row">
+            <ul class="product-list">
+                {% for object in object_list %}
+                    <li class="product-list__item col-xs-6 col-md-4">
+                        <a href="{% url "products:detail" object.slug %}">
                             {% if object.image %}
-                                    <img class="img-responsive full-w" src="{% thumbnail object.image 400x400 autocrop %}" alt="{{ object.name }}">
+                                <img class="lazy img-responsive full-w"
+                                     data-original="{% thumbnail object.image 360x480 crop %}"
+                                     alt="{{ object.name }}">
                             {% endif %}
-                            <div class="caption">
-                                <h2>{{ object.name }}</h2>
-                                <p>{{ object.perex|truncatewords:20 }}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+                            <h2>{{ object.name }}</h2>
+                            <span class="product-list__item__price">${{ object.price }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 
