@@ -9,57 +9,72 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h1>Shopping Cart</h1>
-                    <table class="table cart-list">
+
+                    <table id="cart" class="table table-hover table-condensed">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th colspan="1">Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total Price</th>
-                            <th>Actions</th>
+                            <th style="width:50%">Product</th>
+                            <th style="width:10%">Price</th>
+                            <th style="width:8%">Quantity</th>
+                            <th style="width:22%" class="text-center">Subtotal</th>
+                            <th style="width:10%"></th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for cart_item in cart.cartitem_set.all %}
                             <tr>
-                                <td width="100"><a href="{% url "products:detail" cart_item.product.slug %}"><img
-                                        src="{% thumbnail cart_item.product.image 100x100 crop %}" alt=""></a></td>
-                                <td><h4><a
-                                        href="{% url "products:detail" cart_item.product.slug %}">{{ cart_item.product.name }}<a/>
-                                </h4></td>
-                                <td>
+                                <td data-th="Product">
+                                    <div class="row">
+                                        <div class="col-sm-2 hidden-xs">
+                                            <a href="{% url "products:detail" cart_item.product.slug %}"><img
+                                                    class="img-responsive"
+                                                    src="{% thumbnail cart_item.product.image 100x100 crop %}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <h4 class="nomargin">{{ cart_item.product.name }}</h4>
+                                            <p>{{ cart_item.product.perex }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-th="Price">${{ cart_item.product.price|floatformat }}</td>
+                                <td data-th="Quantity">
                                     <form action="{% url "cart:update" cart_item.product.id %}" method="post">
                                         {% csrf_token %}
-                                        <input type="number" name="cart_item_quantity" min="1"
+                                        <input class="cart_item_quantity" type="number" name="cart_item_quantity"
+                                               min="1"
                                                value="{{ cart_item.quantity }}">
-                                        <button class="button" type="submit">Update</button>
+                                        <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i>
+                                        </button>
                                     </form>
                                 </td>
-                                <td>{{ cart_item.product.price|floatformat }}</td>
-                                <td><strong>{{ cart_item.total_price|floatformat }}</strong></td>
-                                <td>
+                                <td data-th="Subtotal" class="text-center">${{ cart_item.total_price|floatformat }}</td>
+                                <td class="actions" data-th="">
                                     <form action="{% url "cart:remove" cart_item.product.id %}" method="post">
                                         {% csrf_token %}
-                                        <button type="submit"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="fa fa-trash-o"></i></button>
                                     </form>
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
+
+                        <tfoot>
+                        <tr class="visible-xs">
+                            <td class="text-center"><strong>Total ${{ cart.price_subtotal|floatformat }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/" class="btn btn-default">Continue
+                                Shopping</a></td>
+                            <td colspan="2" class="hidden-xs"></td>
+                            <td class="hidden-xs text-center"><strong>Total
+                                ${{ cart.price_subtotal|floatformat }}</strong></td>
+                            <td><a href="{% url "checkout:index" %}" class="btn btn-primary btn-block">Checkout </a>
+                            </td>
+                        </tr>
+                        </tfoot>
                     </table>
-                        <hr />
-                    <div class="row">
-                        <div class="col-sm-12">
-                             <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <a href="{% url "products:index" %}" class="btn btn-primary btn-lg">Continue Shopping</a>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <a href="{% url "checkout:index" %}" class="btn btn-success btn-lg pull-right">Checkout</a>
-                        </div>
-                    </div>
 
                 </div>
             </div>

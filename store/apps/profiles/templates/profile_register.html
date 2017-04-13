@@ -8,7 +8,7 @@
             <h2 class="text-center">Create your account</h2>
                 <form class="form" action="{{ request.path }}" method="post">
                     {{ form|crispy }}
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     {% csrf_token %}
                 </form>
             </div>
