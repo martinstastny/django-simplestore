@@ -7,16 +7,6 @@ DATABASES['default'].update(db_from_env)
 
 DEBUG = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_simple_ecommerce',
-        'HOST': '127.0.0.1',
-        'USER': '',
-        'PASSWORD': '',
-        'PORT': '5432',
-    }
-}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
