@@ -7,7 +7,6 @@ DATABASES['default'].update(db_from_env)
 
 DEBUG = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
@@ -23,10 +22,10 @@ ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0', '127.0.0.1', 'appstaging.online']
 
 # AWS Settings
 os.environ['S3_USE_SIGV4'] = 'True'
-THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_REGION_NAME = 'eu-west-1'
 AWS_STORAGE_BUCKET_NAME = 'martinsteststorage'
 AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_KEY')
