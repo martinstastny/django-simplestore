@@ -5,7 +5,7 @@ import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-DEBUG = False
+DEBUG = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -30,4 +30,8 @@ ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0']
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
+AWS_S3_REGION_NAME = 'eu-central-1'
 AWS_STORAGE_BUCKET_NAME = 'simpleecommerce'
+AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY')
+AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_KEY')
+
