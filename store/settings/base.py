@@ -23,19 +23,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'profiles',
     'easy_thumbnails',
     'filer',
     'mptt',
     'crispy_forms',
     'storages',
-    'profiles',
     'products',
     'cart',
     'checkout',

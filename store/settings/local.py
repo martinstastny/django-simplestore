@@ -28,5 +28,3 @@ INSTALLED_APPS += (
 INTERNAL_IPS = [
     '127.0.0.1'
 ]
-
-THUMBNAIL_DEFAULT_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
