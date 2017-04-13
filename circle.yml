@@ -11,3 +11,5 @@ deployment:
     branch: master
     heroku:
       appname: django-simple-ecommerce
+    commands:
+      - python ./manage.py loaddata products.json
