@@ -19,7 +19,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0', '127.0.0.1', 'appstaging.online']
 
 # AWS Settings
 os.environ['S3_USE_SIGV4'] = 'True'
