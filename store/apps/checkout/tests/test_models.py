@@ -1,7 +1,7 @@
 import datetime
 from django.test import TestCase
 
-from checkout.models import Order
+from checkout.models.order import Order
 from cart.models import Cart, CartItem
 from products.models.product import Product
 from profiles.models import Profile

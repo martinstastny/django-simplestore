@@ -1,11 +1,12 @@
 from django.shortcuts import redirect
-from django.views.generic import CreateView, DetailView
-from .models import Order
-from .forms import OrderForm
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, FormView, View, TemplateView
+from .models.order import Order, Address
+from .forms import OrderForm, AddressForm
 from cart.mixins import get_cart
 
 
-class CheckoutOrderCreateView(CreateView):
+class CheckoutOrderCreateView(FormView):
     model = Order
     form_class = OrderForm
     template_name = "checkout_index.html"
@@ -22,9 +23,32 @@ class CheckoutOrderCreateView(CreateView):
 
         return super(CheckoutOrderCreateView, self).get(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        order = form.save(commit=False)
+    def post(self, request, *args, **kwargs):
+        order_form = OrderForm(request.POST)
+        address_form = AddressForm(request.POST)
+
+        if order_form.is_valid() and address_form.is_valid():
+            return self.form_valid(order_form, address_form)
+        else:
+            self.form_invalid(order_form, address_form)
+
+    def form_invalid(self, order_form, address_form):
+        print('not valid')
+
+
+    def form_valid(self, order_form, address_form):
+        address = address_form.save(commit=False)
+        order = order_form.save(commit=False)
+
+        if address.use_as_billing:
+            address.address_type = 'shipping'
+        else:
+            address.address_type = 'billing'
+
+        address.save()
+
         order.cart = self.get_object()
+        order.shipping_address = address
 
         if self.request.user.is_authenticated():
             order.user = self.request.user
@@ -37,10 +61,14 @@ class CheckoutOrderCreateView(CreateView):
         except KeyError:
             self.request.session.create()
 
+        # return super(CheckoutOrderCreateView, self).form_valid(self)
         return redirect(order.get_absolute_url())
+
 
     def get_context_data(self, **kwargs):
         context_data = super(CheckoutOrderCreateView, self).get_context_data(**kwargs)
+        context_data['order_form'] = OrderForm()
+        context_data['address_form'] = AddressForm()
         context_data['cart'] = self.get_object()
         return context_data
 

@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 from profiles.models import Profile
 from cart.models import Cart, CartItem
-from checkout.models import Order, OrderItem
+from checkout.models.order import Order, OrderItem
 from products.models.product import Product
 from cart.mixins import get_cart
 from django.contrib.auth.models import AnonymousUser
