@@ -14,6 +14,7 @@ django-filer==1.2.6
 django-mptt==0.8.7
 django-polymorphic==1.0.2
 django-storages==1.5.2
+django-webpack-loader==0.4.1
 docutils==0.13.1
 easy-thumbnails==2.3
 gunicorn==19.7.1
