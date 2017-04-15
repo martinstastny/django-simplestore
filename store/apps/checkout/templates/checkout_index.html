@@ -14,8 +14,7 @@
         </div>
 
         <div class="row">
-
-            <form action="{{ request.path }}" method="post" novalidate>
+            <form action="{{ request.path }}" method="post">
                 {% csrf_token %}
                 <div class="col-sm-12 col-md-4">
                     <div class="well">

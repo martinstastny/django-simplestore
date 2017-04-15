@@ -1,14 +1,12 @@
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, View, TemplateView
-from .models.order import Order, Address
+from django.views.generic import DetailView, FormView
+from .models.order import Order
 from .forms import OrderForm, AddressForm
 from cart.mixins import get_cart
 
 
 class CheckoutOrderCreateView(FormView):
     model = Order
-    form_class = OrderForm
     template_name = "checkout_index.html"
 
     def get_object(self, queryset=None):
@@ -17,26 +15,25 @@ class CheckoutOrderCreateView(FormView):
 
     def get(self, request, *args, **kwargs):
         cart = self.get_object()
+        order_form = OrderForm()
+        address_form = AddressForm()
 
         if cart.cartitem_set.exists() is False:
             return redirect('cart:index')
 
-        return super(CheckoutOrderCreateView, self).get(request, *args, **kwargs)
+        return self.render_to_response(context={'cart': cart, 'order_form': order_form, 'address_form': address_form})
 
     def post(self, request, *args, **kwargs):
         order_form = OrderForm(request.POST)
         address_form = AddressForm(request.POST)
 
         if order_form.is_valid() and address_form.is_valid():
-            return self.form_valid(order_form, address_form)
+            return self.process_order(order_form, address_form, **kwargs)
         else:
-            self.form_invalid(order_form, address_form)
+            return self.render_to_response(
+                context={'cart': self.get_object(), 'order_form': order_form, 'address_form': address_form})
 
-    def form_invalid(self, order_form, address_form):
-        print('not valid')
-
-
-    def form_valid(self, order_form, address_form):
+    def process_order(self, order_form, address_form, **kwargs):
         address = address_form.save(commit=False)
         order = order_form.save(commit=False)
 
@@ -61,16 +58,7 @@ class CheckoutOrderCreateView(FormView):
         except KeyError:
             self.request.session.create()
 
-        # return super(CheckoutOrderCreateView, self).form_valid(self)
         return redirect(order.get_absolute_url())
-
-
-    def get_context_data(self, **kwargs):
-        context_data = super(CheckoutOrderCreateView, self).get_context_data(**kwargs)
-        context_data['order_form'] = OrderForm()
-        context_data['address_form'] = AddressForm()
-        context_data['cart'] = self.get_object()
-        return context_data
 
 
 class OrderConfirmationView(DetailView):
