@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, FormView
 from .models.order import Order
-from .forms import OrderForm, AddressForm
+from .forms import OrderForm, AddressForm, DeliveryForm, PaymentForm
 from cart.mixins import get_cart
 
 
@@ -9,7 +9,7 @@ class CheckoutOrderCreateView(FormView):
     model = Order
     template_name = "checkout_index.html"
 
-    def get_object(self, queryset=None):
+    def get_object(self):
         cart = get_cart(self.request)
         return cart
 
@@ -17,23 +17,39 @@ class CheckoutOrderCreateView(FormView):
         cart = self.get_object()
         order_form = OrderForm()
         address_form = AddressForm()
+        delivery_form = DeliveryForm()
+        payment_form = PaymentForm()
 
         if cart.cartitem_set.exists() is False:
             return redirect('cart:index')
 
-        return self.render_to_response(context={'cart': cart, 'order_form': order_form, 'address_form': address_form})
+        return self.render_to_response(context={
+            'cart': cart,
+            'order_form': order_form,
+            'address_form': address_form,
+            'delivery_form': delivery_form,
+            'payment_form': payment_form
+        })
 
     def post(self, request, *args, **kwargs):
+
         order_form = OrderForm(request.POST)
         address_form = AddressForm(request.POST)
+        delivery_form = DeliveryForm(request.POST)
+        payment_form = PaymentForm(request.POST)
 
-        if order_form.is_valid() and address_form.is_valid():
-            return self.process_order(order_form, address_form, **kwargs)
+        if order_form.is_valid() and address_form.is_valid() and delivery_form.is_valid() and payment_form.is_valid():
+            return self.process_order(order_form, address_form, delivery_form, payment_form, **kwargs)
         else:
-            return self.render_to_response(
-                context={'cart': self.get_object(), 'order_form': order_form, 'address_form': address_form})
+            return self.render_to_response(context={
+                'cart': self.get_object(),
+                'order_form': order_form,
+                'address_form': address_form,
+                'delivery_form': delivery_form,
+                'payment_form': payment_form
+             })
 
-    def process_order(self, order_form, address_form, **kwargs):
+    def process_order(self, order_form, address_form, delivery_form, payment_form, **kwargs):
         address = address_form.save(commit=False)
         order = order_form.save(commit=False)
 
@@ -46,6 +62,8 @@ class CheckoutOrderCreateView(FormView):
 
         order.cart = self.get_object()
         order.shipping_address = address
+        order.payment_method = payment_form.cleaned_data['payment_method']
+        order.delivery_method = delivery_form.cleaned_data['delivery_method']
 
         if self.request.user.is_authenticated():
             order.user = self.request.user

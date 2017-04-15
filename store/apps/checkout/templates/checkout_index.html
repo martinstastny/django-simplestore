@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load crispy_forms_tags %}
+{% crispy delivery_form delivery_form.helper %}
 
 {% block content %}
     <div class="container">
@@ -30,9 +31,11 @@
                 <div class="col-sm-12 col-md-4 ">
                     <div class="well">
                         <legend>Delivery methods</legend>
+                        {{ delivery_form|crispy }}
                     </div>
                     <div class="well">
                         <legend>Payment</legend>
+                        {{ payment_form|crispy }}
                     </div>
                 </div>
 
