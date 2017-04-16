@@ -8,6 +8,7 @@ from .payment import Payment
 from products.models.product import Product
 from django.conf import settings
 
+
 class Order(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
@@ -17,9 +18,11 @@ class Order(models.Model):
     status = models.CharField(choices=settings.ORDER_STATUS_CHOICES, max_length=120, default='created')
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address', null=True)
+    shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',
+                                         null=True)
     billing_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='billing_address', null=True)
-    delivery_method = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING, related_name='delivery_method', null=True)
+    delivery_method = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING, related_name='delivery_method',
+                                        null=True)
     payment_method = models.ForeignKey(Payment, on_delete=models.DO_NOTHING, related_name='payment_method', null=True)
 
     class Meta:

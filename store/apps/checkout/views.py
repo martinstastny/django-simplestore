@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, FormView
 from .models.order import Order
-from .forms import OrderForm, AddressForm, DeliveryForm, PaymentForm
+from .forms import OrderForm, ShippingAddressForm, DeliveryForm, PaymentForm, BillingAddressForm
 from cart.mixins import get_cart
 
 
@@ -16,9 +16,10 @@ class CheckoutOrderCreateView(FormView):
     def get(self, request, *args, **kwargs):
         cart = self.get_object()
         order_form = OrderForm()
-        address_form = AddressForm()
+        address_form = ShippingAddressForm()
         delivery_form = DeliveryForm()
         payment_form = PaymentForm()
+        billing_form = BillingAddressForm()
 
         if cart.cartitem_set.exists() is False:
             return redirect('cart:index')
@@ -28,13 +29,14 @@ class CheckoutOrderCreateView(FormView):
             'order_form': order_form,
             'address_form': address_form,
             'delivery_form': delivery_form,
-            'payment_form': payment_form
+            'payment_form': payment_form,
+            'billing_form': billing_form
         })
 
     def post(self, request, *args, **kwargs):
 
         order_form = OrderForm(request.POST)
-        address_form = AddressForm(request.POST)
+        address_form = ShippingAddressForm(request.POST)
         delivery_form = DeliveryForm(request.POST)
         payment_form = PaymentForm(request.POST)
 
