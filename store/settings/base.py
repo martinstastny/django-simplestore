@@ -17,7 +17,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#x8^)n$qwo@oy8=n%hz+ukdu*awuv8z03!!tpk(_3-u56i=)17'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 # Application definition

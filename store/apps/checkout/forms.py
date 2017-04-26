@@ -19,7 +19,6 @@ class AddressForm(forms.ModelForm):
 
 
 class OrderForm(forms.ModelForm):
-
     class Meta:
         model = Order
         fields = [
@@ -31,8 +30,9 @@ class OrderForm(forms.ModelForm):
 
 class DeliveryForm(forms.Form):
     delivery_method = forms.ModelChoiceField(queryset=Delivery.objects.all(), widget=forms.RadioSelect,
-                                              empty_label=None, initial=None, required=True, label='')
+                                             empty_label=None, initial=None, required=True, label='')
 
 
 class PaymentForm(forms.Form):
-    payment_method = forms.ModelChoiceField(queryset=Payment.objects.all(), widget=forms.RadioSelect, empty_label=None, initial=None, label='')
+    payment_method = forms.ModelChoiceField(queryset=Payment.objects.all(), widget=forms.RadioSelect, empty_label=None,
+                                            initial=None, label='')
