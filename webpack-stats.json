@@ -1,0 +1,18 @@
+{
+  "status": "done",
+  "publicPath": "http://localhost:8001/static/bundles/prod/",
+  "chunks": {
+    "app": [
+      {
+        "name": "js/app-437776fd248040fc260c.js",
+        "publicPath": "http://localhost:8001/static/bundles/prod/js/app-437776fd248040fc260c.js",
+        "path": "/Users/Martin/Code/django-store/store/static/bundles/prod/js/app-437776fd248040fc260c.js"
+      },
+      {
+        "name": "css/app-437776fd248040fc260c.css",
+        "publicPath": "http://localhost:8001/static/bundles/prod/css/app-437776fd248040fc260c.css",
+        "path": "/Users/Martin/Code/django-store/store/static/bundles/prod/css/app-437776fd248040fc260c.css"
+      }
+    ]
+  }
+}

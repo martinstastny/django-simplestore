@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'products',
     'cart',
     'checkout',
+    'webpack_loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +84,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEBUG = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10.5/howto/static-files/
@@ -126,6 +128,17 @@ TEMPLATES = [
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'bundles/dev/', # must end with slash
+        'STATS_FILE': os.path.join(PROJECT_ROOT, 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}
 
 # Easy Thumbnails Settings
 THUMBNAIL_PROCESSORS = (

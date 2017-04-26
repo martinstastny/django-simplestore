@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 from profiles.models import Profile
 from cart.models import Cart, CartItem
-from checkout.models import Order, OrderItem
+from checkout.models.order import Order, OrderItem
 from products.models.product import Product
 from cart.mixins import get_cart
 from django.contrib.auth.models import AnonymousUser
@@ -152,18 +152,3 @@ class CheckoutTests(TestCase):
         total_price = test_order_item.get_total_price()
 
         self.assertEqual(total_price, 4000)
-
-
-    def test_adding_user_to_order(self):
-
-        test_user = self._create_testing_user()
-        self.client.force_login(test_user)
-
-        test_cart = self._create_testing_cart()
-        test_cart.save()
-
-        response = self.client.post(reverse('checkout:index'),
-                                    data={'full_name': 'Martin Stastny', 'email': 'testmail@gmail.com',
-                                          'cart': test_cart, 'user': test_user }, follow=True)
-
-        self.assertEqual(response.context['order'].user, test_user)

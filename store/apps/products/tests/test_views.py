@@ -67,7 +67,7 @@ class ProductViewsTest(TestCase):
     """
     def test_products_list_view_is_returning_active_products(self):
         request = self.client.get(self.product_list_url)
-        self.assertEqual(len(request.context_data['object_list']), 3)
+        self.assertEqual(len(request.context_data['object_list']), 2)
 
 
     # Product Detail tests
