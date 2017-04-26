@@ -12,8 +12,8 @@ machine:
 test:
   override:
     - python ./manage.py test --settings=store.settings.test
-    - npm run prod
     - python ./manage.py migrate --settings=store.settings.staging
+    - npm run prod
     - python ./manage.py collectstatic --settings=store.settings.staging --no-input
 
 deployment:
