@@ -1,12 +1,12 @@
 from _decimal import Decimal
 from django.db import models
 from django.urls import reverse
-from django.conf import settings
 from cart.models import Cart
 from .address import Address
 from .delivery import Delivery
 from .payment import Payment
 from products.models.product import Product
+from django.conf import settings
 
 
 class Order(models.Model):
