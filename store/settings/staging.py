@@ -18,6 +18,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/prod/', # must end with slash
+    }
+}
+
+
 ALLOWED_HOSTS = ['.herokuapp.com', '0.0.0.0', '127.0.0.1', 'appstaging.online']
 
 # AWS Settings

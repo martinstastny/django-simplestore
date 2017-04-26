@@ -18,7 +18,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    readonly_fields = ('full_name', 'email', 'shipping_address', 'billing_address', )
+    readonly_fields = ('cart', 'full_name', 'email', 'shipping_address', 'billing_address', )
     inlines = [
         OrderItemInline,
     ]

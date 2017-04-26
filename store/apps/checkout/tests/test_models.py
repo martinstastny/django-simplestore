@@ -63,10 +63,3 @@ class TestOrderModels(TestCase):
 
         self.assertEqual(order.items.count(), 1)
         self.assertEqual(str(order), 'Order num. 1')
-
-    def test_checkout_process_order(self):
-        response = self.client.post(reverse('checkout:index'),
-                                    data={'full_name': 'Martin Stastny', 'email': 'testmail@gmail.com',
-                                          'cart': self.cart}, follow=True)
-
-        self.assertRedirects(response, response.context['order'].get_absolute_url(), 302)
