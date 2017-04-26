@@ -15,7 +15,7 @@ test:
 
 deployment:
   staging:
-    branch: master
+    branch: develop
     heroku:
       appname: django-simple-ecommerce
     commands:
