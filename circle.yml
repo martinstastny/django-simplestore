@@ -12,6 +12,7 @@ machine:
 test:
   override:
     - python ./manage.py test --settings=store.settings.test
+
     - npm run prod
     - python ./manage.py collectstatic --settings=store.settings.staging --no-input
 
@@ -21,4 +22,5 @@ deployment:
     heroku:
       appname: django-simple-ecommerce
     commands:
+      - python ./manage.py migrate
       - python ./manage.py loaddata products.json
