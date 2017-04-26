@@ -22,4 +22,5 @@ deployment:
     heroku:
       appname: django-simple-ecommerce
     commands:
+      - npm run prod
       - python ./manage.py loaddata products.json
