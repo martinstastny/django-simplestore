@@ -10,6 +10,7 @@ media
 store/static/bower_components
 
 htmlcov
+db.sqlite3
 
 store/settings/production.py
 
