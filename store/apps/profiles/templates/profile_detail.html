@@ -2,8 +2,15 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <h2>{{ object.get_full_name }}</h2>
+            <div class="col-sm-12 col-md-3">
+                <div class="list-group">
+                    <a class="list-group-item" href="">Edit details</a>
+                    <a class="list-group-item" href="">Orders</a>
+                    <a class="list-group-item" href="">Addresses</a>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 pull-right">
+                <h2>Welcome {{ object.get_full_name }}</h2>
                 <p><strong>Email:</strong> {{ object.email }}</p>
                 <a class="btn btn-primary" href="{% url 'profiles:update' object.pk  %}">Edit details</a>
                 <a class="btn btn-danger" href="{% url 'profiles:logout' %}">Logout</a>

@@ -19,12 +19,13 @@
                 {% csrf_token %}
                 <div class="col-sm-12 col-md-4">
                     <div class="well">
-                        <legend>Shipping Details</legend>
+                        <legend>Delivery Details</legend>
                         {{ order_form|crispy }}
                         {{ address_form|crispy }}
-                    </div>
-                    <div class="well">
-                        <legend>Billing Details</legend>
+                        <div class="js-billing-form hidden">
+                            <legend>Billing Details</legend>
+                            {{ billing_form|crispy }}
+                        </div>
                     </div>
                 </div>
 

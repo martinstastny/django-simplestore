@@ -7,6 +7,8 @@ ADDRESS_TYPES = (
 
 class Address(models.Model):
     address_type = models.CharField(choices=ADDRESS_TYPES, max_length=120)
+    full_name = models.CharField(max_length=120, null=True)
+    phone = models.CharField(max_length=120, null=True)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     postcode = models.CharField(max_length=25)
