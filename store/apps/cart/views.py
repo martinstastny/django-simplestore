@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.views.generic import DeleteView, DetailView, FormView
+from django.views.generic import DeleteView, FormView, TemplateView
 from django.core.urlresolvers import reverse_lazy
 from .models import Cart, CartItem
 from .mixins import get_cart
@@ -8,13 +8,17 @@ from products.models.product import Product
 from .forms import AddToCartForm
 
 
-class CartView(DetailView, FormView):
-    model = Cart
+class CartView(TemplateView):
     template_name = "cart_index.html"
 
-    def get(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         cart = get_cart(self.request)
-        return render(self.request, template_name=self.template_name, context={'cart': cart})
+        context = super(CartView, self).get_context_data(**kwargs)
+        context.update({
+            'cart': cart,
+            'cart_items': cart.cartitem_set.select_related('product__image')
+        })
+        return context
 
 
 # Removing item from cart

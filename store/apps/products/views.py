@@ -1,11 +1,25 @@
-from .models.product import Product
+from .models.product import Product, Category
 from django.views.generic import ListView, DetailView
 from cart.forms import AddToCartForm
 
 
+class CategoryDetailView(DetailView):
+    model = Category
+    slug_url_kwarg = 'category_slug'
+    template_name = "category_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        products = Product.objects.filter(category=self.get_object()).prefetch_related('image')
+        context.update({
+            'products': products
+        })
+        return context
+
+
 class ProductsListView(ListView):
     model = Product
-    queryset = Product.objects.all().prefetch_related('image')
+    queryset = Product.objects.prefetch_related('image')
     template_name = "product_list.html"
 
 
