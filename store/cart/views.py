@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.views.generic import DeleteView, FormView, TemplateView
 from django.core.urlresolvers import reverse_lazy
-from .models import Cart, CartItem
-from .mixins import get_cart
-from products.models.product import Product
+from django.shortcuts import get_object_or_404
+from django.views.generic import DeleteView, FormView, TemplateView
+
+from store.products.models.product import Product
 from .forms import AddToCartForm
+from .mixins import get_cart
+from .models import CartItem
 
 
 class CartView(TemplateView):

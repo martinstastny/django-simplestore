@@ -1,6 +1,8 @@
 from django.contrib import admin
-from products.models.product import Product
-from products.models.category import Category
+from store.products.models.product import Product
+
+from store.products.models.category import Category
+
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ('name',)}

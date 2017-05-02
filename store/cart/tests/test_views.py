@@ -1,14 +1,16 @@
 import datetime
 from decimal import Decimal
-from django.test import TestCase, RequestFactory
-from django.core.urlresolvers import reverse
-from cart.models import Cart, CartItem
-from cart.mixins import get_cart
-from cart.context_processors import cart_count_processor
-from products.models.product import Product
-from profiles.models import Profile
+
+from store.cart.context_processors import cart_count_processor
+from store.cart.mixins import get_cart
+from store.cart.models import Cart, CartItem
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages import get_messages
+from django.core.urlresolvers import reverse
+from django.test import TestCase, RequestFactory
+from store.products.models.product import Product
+
+from store.profiles.models import Profile
 
 
 class CartViewsTests(TestCase):

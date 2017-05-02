@@ -1,7 +1,9 @@
-from django.test import TestCase, RequestFactory
 from django.core.urlresolvers import reverse, resolve
-from products.models.product import Product
-from products.views import ProductsListView, ProductDetailView
+from django.test import TestCase, RequestFactory
+
+from store.products.models.product import Product
+from store.products.views import ProductsListView, ProductDetailView
+
 
 class ProductViewsTest(TestCase):
 
@@ -67,7 +69,7 @@ class ProductViewsTest(TestCase):
     """
     def test_products_list_view_is_returning_active_products(self):
         request = self.client.get(self.product_list_url)
-        self.assertEqual(len(request.context_data['object_list']), 2)
+        self.assertEqual(len(request.context_data['object_list']), 3)
 
 
     # Product Detail tests

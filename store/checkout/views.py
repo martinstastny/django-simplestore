@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, FormView
-from cart.mixins import get_cart
-from .models.order import Order
+
+from store.cart.mixins import get_cart
 from .forms import OrderForm, AddressForm, DeliveryForm, PaymentForm
+from .models.order import Order
 
 
 class CheckoutOrderCreateView(FormView):

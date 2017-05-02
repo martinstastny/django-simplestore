@@ -1,12 +1,14 @@
 import datetime
+
+from store.cart.mixins import get_cart
+from store.cart.models import Cart, CartItem
+from store.checkout.models.order import Order, OrderItem
+from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django.urls import reverse
-from profiles.models import Profile
-from cart.models import Cart, CartItem
-from checkout.models.order import Order, OrderItem
-from products.models.product import Product
-from cart.mixins import get_cart
-from django.contrib.auth.models import AnonymousUser
+from store.products.models.product import Product
+
+from store.profiles.models import Profile
 
 
 class CheckoutTests(TestCase):

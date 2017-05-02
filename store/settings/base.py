@@ -30,15 +30,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'profiles',
+    'store.profiles',
     'easy_thumbnails',
     'filer',
     'mptt',
     'crispy_forms',
     'storages',
-    'products',
-    'cart',
-    'checkout',
+    'store.products',
+    'store.cart',
+    'store.checkout',
     'webpack_loader',
 )
 
@@ -113,7 +113,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart_count_processor',
+                'store.cart.context_processors.cart_count_processor',
             ],
             'loaders' : [
                 'django.template.loaders.filesystem.Loader',

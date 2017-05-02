@@ -7,15 +7,15 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^profiles/', include('profiles.urls', namespace='profiles')),
-    url(r'^cart/', include('cart.urls', namespace='cart')),
-    url(r'^checkout/', include('checkout.urls', namespace='checkout')),
-    url(r'^', include('products.urls', namespace='products')),
+    url(r'^profiles/', include('store.profiles.urls', namespace='profiles')),
+    url(r'^cart/', include('store.cart.urls', namespace='cart')),
+    url(r'^checkout/', include('store.checkout.urls', namespace='checkout')),
+    url(r'^', include('store.products.urls', namespace='products')),
 ]
-
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
     ]

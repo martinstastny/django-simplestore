@@ -1,11 +1,11 @@
 import datetime
-from django.test import TestCase
 
-from checkout.models.order import Order
-from cart.models import Cart, CartItem
-from products.models.product import Product
-from profiles.models import Profile
-from django.urls import reverse
+from store.cart.models import Cart, CartItem
+from store.checkout.models.order import Order
+from django.test import TestCase
+from store.products.models.product import Product
+
+from store.profiles.models import Profile
 
 
 class TestOrderModels(TestCase):

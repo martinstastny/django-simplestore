@@ -1,14 +1,16 @@
-from django.shortcuts import render
+from store.cart.models import Cart
 from django.contrib import messages
-from .forms import RegistrationForm, LoginForm
-from django.http import HttpResponseRedirect
-from django.views.generic.edit import FormView, UpdateView
-from django.views.generic import DetailView, ListView
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormView, UpdateView
+
+from store.checkout.models.order import Order
+from .forms import RegistrationForm, LoginForm
 from .models import Profile
-from cart.models import Cart
-from checkout.models.order import Order
+
 
 def profile_index(request):
     return render(request, "profile_index.html")

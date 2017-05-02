@@ -1,7 +1,9 @@
 from decimal import Decimal
-from django.db import models
+
 from django.conf import settings
-from products.models.product import Product
+from django.db import models
+
+from store.products.models.product import Product
 
 
 class Cart(models.Model):
