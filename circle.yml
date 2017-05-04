@@ -11,10 +11,10 @@ machine:
 
 test:
   override:
-    - python ./manage.py test --settings=store.settings.test
-    - python ./manage.py migrate --settings=store.settings.staging
+    - python ./manage.py test --settings=simplestore.settings.test
+    - python ./manage.py migrate --settings=simplestore.settings.staging
     - npm run prod
-    - python ./manage.py collectstatic --settings=store.settings.staging --no-input
+    - python ./manage.py collectstatic --settings=simplestore.settings.staging --no-input
 
 deployment:
   staging:

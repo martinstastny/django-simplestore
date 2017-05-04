@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
-STATIC_ROOT = './store/static/';
+STATIC_ROOT = './simplestore/static/';
 
 let baseConfig = {};
 
