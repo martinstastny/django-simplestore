@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import DeleteView, FormView, TemplateView
-
 from simplestore.products.models.product import Product
 from .forms import AddToCartForm
 from .mixins import get_cart
@@ -16,15 +15,17 @@ class CartView(TemplateView):
         context = super(CartView, self).get_context_data(**kwargs)
 
         items = []
-        cart = get_cart(self.request)
+        cart = get_cart(self.request, create=True)
+
         if cart:
             items = cart.cartitem_set.select_related('product__image')
+
         context.update({
             'cart': cart,
             'cart_items': items
         })
-        return context
 
+        return context
 
 # Removing item from cart
 class RemoveCartItemView(DeleteView):

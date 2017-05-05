@@ -87,9 +87,8 @@ class CheckoutTests(TestCase):
         request.user = self.anonymous_user
 
         cart = get_cart(request)
-        cart_items_exists = cart.cartitem_set.exists()
 
-        self.assertEqual(cart_items_exists, False, "Cart should not contain any items.")
+        self.assertEqual(cart, None, "Cart should not exists")
         self.assertRedirects(request, reverse('cart:index'), 302, 200, "It should be redirected to cart index.")
 
     """

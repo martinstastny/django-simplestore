@@ -1,6 +1,5 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, FormView
-
 from simplestore.cart.mixins import get_cart
 from .forms import OrderForm, AddressForm, DeliveryForm, PaymentForm
 from .models.order import Order
@@ -15,22 +14,23 @@ class CheckoutOrderCreateView(FormView):
         return cart
 
     def get(self, request, *args, **kwargs):
-        cart = self.get_object()
         order_form = OrderForm()
         address_form = AddressForm()
         delivery_form = DeliveryForm()
         payment_form = PaymentForm()
 
-        if cart.cartitem_set.exists() is False:
+        if self.get_object() == None:
             return redirect('cart:index')
 
-        return self.render_to_response(context={
-            'cart': cart,
-            'order_form': order_form,
-            'address_form': address_form,
-            'delivery_form': delivery_form,
-            'payment_form': payment_form
-        })
+        return self.render_to_response(
+            context={
+                'cart': self.get_object(),
+                'order_form': order_form,
+                'address_form': address_form,
+                'delivery_form': delivery_form,
+                'payment_form': payment_form
+            }
+        )
 
     def post(self, request, *args, **kwargs):
         order_form = OrderForm(request.POST)
@@ -47,7 +47,7 @@ class CheckoutOrderCreateView(FormView):
                 'address_form': address_form,
                 'delivery_form': delivery_form,
                 'payment_form': payment_form
-             })
+            })
 
     def process_order(self, order_form, address_form, delivery_form, payment_form, **kwargs):
         address = address_form.save(commit=False)

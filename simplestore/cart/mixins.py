@@ -15,3 +15,5 @@ def get_cart(request, create=False):
     except Cart.DoesNotExist:
         if create:
             return Cart.objects.create(**kwargs)
+        else:
+            return None
