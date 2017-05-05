@@ -16,4 +16,5 @@ simplestore/settings/production.py
 
 /coverage.xml
 /node_modules/
+/simplestore/static/bundles/dev/
 /simplestore/static/bundles/prod/
