@@ -11,11 +11,14 @@ machine:
 
 test:
   override:
-    - python ./manage.py test --settings=store.settings.test
+    - python ./manage.py test --settings=simplestore.settings.test
+    - python ./manage.py migrate --settings=simplestore.settings.staging
+    - npm run prod
+    - python ./manage.py collectstatic --settings=simplestore.settings.staging --no-input
 
 deployment:
   staging:
-    branch: master
+    branch: develop
     heroku:
       appname: django-simple-ecommerce
     commands:

@@ -7,12 +7,14 @@ _tmp
 
 media
 
-store/static/bower_components
+simplestore/static/bower_components
 
 htmlcov
+db.sqlite3
 
-store/settings/production.py
+simplestore/settings/production.py
 
 /coverage.xml
 /node_modules/
-/store/static/bundles/prod/
+/simplestore/static/bundles/dev/
+/simplestore/static/bundles/prod/

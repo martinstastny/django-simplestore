@@ -1,0 +1,71 @@
+{% load static %}
+{% load render_bundle from webpack_loader %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% render_bundle 'app' 'css' %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">Django Store</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar-main" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'products:category' category_slug='men' %}">Men</a></li>
+                <li><a href="{% url 'products:category' category_slug='women' %}">Women</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
+                    <li>
+                        <a href="{% url 'profiles:detail' user.id %}"><i class="fa fa-user"
+                                                                         aria-hidden="true"></i></a></li>
+                {% else %}
+                    <li><a href="{% url 'profiles:login' %}"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+                {% endif %}
+                <li><a href="{% url "cart:index" %}"><span class="visible-xs-inline">Shopping bag</span> <i
+                        class="fa fa-shopping-bag" aria-hidden="true"></i> <span
+                        class="bag-count"> {{ cart_items_count }}</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main class="main-content light-grey">
+    {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+{% block scripts %}
+    {% render_bundle 'app' 'js' %}
+{% endblock %}
+</body>
+</html>

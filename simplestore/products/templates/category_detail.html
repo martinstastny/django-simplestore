@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+
+{% block content %}
+    <div class="container">
+        <div class="row products-row">
+            <ul class="product-list full-width">
+                {% for product in products%}
+                    <li class="product-list__item col-xs-6 col-md-4">
+                        <a href="{% url "products:detail" product.slug %}">
+                            {% if product.image %}
+                                <img class="lazy img-responsive full-w"
+                                     data-original="{% thumbnail product.image 360x480 crop %}"
+                                     alt="{{ product.name }}">
+                            {% endif %}
+                            <h2>{{ product.name }}</h2>
+                            <span class="product-list__item__price">${{ product.price }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
