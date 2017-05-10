@@ -6,13 +6,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <h1>Order #{{ order.id }}</h1>
-
                 <p>
                     <strong>Status: </strong>{{ order.status|capfirst }} </br>
                     <strong>Created at: </strong>{{ order.created_at }} </br>
                     <strong>Delivery type: </strong> {{ order.delivery_method }}
                 </p>
-
                 <h3>Order details</h3>
                 <table class="table table-responsive vertical-middle">
                     <tr>

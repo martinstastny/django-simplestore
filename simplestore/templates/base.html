@@ -1,5 +1,6 @@
 {% load static %}
 {% load render_bundle from webpack_loader %}
+{% load cart_tags %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,9 +37,7 @@
                 {% else %}
                     <li><a href="{% url 'profiles:login' %}"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                 {% endif %}
-                <li><a href="{% url "cart:index" %}"><span class="visible-xs-inline">Shopping bag</span> <i
-                        class="fa fa-shopping-bag" aria-hidden="true"></i> <span
-                        class="bag-count"> {{ cart_items_count }}</span></a></li>
+                <li>{% cart_counter %}</li>
             </ul>
         </div>
     </div>

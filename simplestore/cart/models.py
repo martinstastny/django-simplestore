@@ -27,8 +27,8 @@ class Cart(models.Model):
         self.save()
 
     def get_total_quantity_of_items(self):
-        items = self.cartitem_set.all()
-        return sum(item.quantity for item in items)
+        qty = self.cartitem_set.all().aggregate(sum=models.Sum('quantity'))
+        return qty['sum']
 
     def __str__(self):
         return "Cart id: {id}".format(id=self.pk)
