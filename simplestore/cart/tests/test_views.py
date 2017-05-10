@@ -1,7 +1,7 @@
 import datetime
 from decimal import Decimal
 
-from cart.templatetags.cart_tags import cart_counter
+from simplestore.cart.templatetags.cart_tags import cart_counter
 from simplestore.cart.mixins import get_cart
 from simplestore.cart.models import Cart, CartItem
 from django.contrib.auth.models import AnonymousUser
