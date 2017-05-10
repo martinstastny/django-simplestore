@@ -1,4 +1,3 @@
-from simplestore.cart.models import Cart
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse_lazy
@@ -6,7 +5,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+from simplestore.cart.mixins import get_cart
 from simplestore.checkout.models.order import Order
 from .forms import RegistrationForm, LoginForm
 from .models import Profile
@@ -35,15 +36,18 @@ class RegistrationFormView(FormView):
         return super(RegistrationFormView, self).form_valid(form)
 
 
-class UpdateProfileForm(UpdateView):
-    template_name = "profile_update.html"
+class UpdateProfileForm(LoginRequiredMixin, UpdateView):
+    template_name = 'profile_update.html'
     form_class = RegistrationForm
     model = Profile
     success_url = reverse_lazy('homepage')
+    login_url = reverse_lazy('profiles:login')
 
 
-class ProfileOrdersView(ListView):
+class ProfileOrdersView(LoginRequiredMixin, ListView):
     model = Order
+    template_name = 'profile_orders.html'
+    login_url = reverse_lazy('profiles:login')
 
     def get_context_data(self, **kwargs):
         context = super(ProfileOrdersView, self).get_context_data(**kwargs)
@@ -51,15 +55,22 @@ class ProfileOrdersView(ListView):
 
         return context
 
+
+class ProfileOrderDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = 'profile_order_detail.html'
+    login_url = reverse_lazy('profiles:login')
+
+
 # Login
 class AuthenticationForm(FormView):
-    template_name = "profile_login.html"
+    template_name = 'profile_login.html'
     form_class = LoginForm
     success_url = reverse_lazy('products:index')
 
     def form_valid(self, form):
 
-        cart = Cart.objects.get(session_key=self.request.session.session_key)
+        cart = get_cart(self.request, create=True)
         user = authenticate(email=self.request.POST['email'], password=self.request.POST['password'])
 
         if user is not None and user.is_active:
