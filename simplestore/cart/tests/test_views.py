@@ -1,7 +1,7 @@
 import datetime
 from decimal import Decimal
 
-from simplestore.cart.context_processors import cart_count_processor
+from cart.templatetags.cart_tags import cart_counter
 from simplestore.cart.mixins import get_cart
 from simplestore.cart.models import Cart, CartItem
 from django.contrib.auth.models import AnonymousUser
@@ -245,6 +245,10 @@ class CartViewsTests(TestCase):
         request.session = session
         request.user = self.request.anonymous_user
 
-        total_qty = cart_count_processor(request)
+        context = {
+            'request': request
+        }
 
-        self.assertEqual(total_qty['cart_items_count'], 3, "Total quantity should be equal to 3")
+        total_qty = cart_counter(context)
+
+        self.assertEqual(total_qty['cart_items_total_qty'], 3, "Total quantity should be equal to 3")
