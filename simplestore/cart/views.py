@@ -14,7 +14,6 @@ class CartView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
 
-        items = []
         cart = get_cart(self.request, create=True)
 
         if cart:

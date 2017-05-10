@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Orders</h1>
+                {% if orders %}
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Created at</th>
+                            <th>Delivery method</th>
+                            <th>Payment method</th>
+                            <th>Total</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.created_at }}</td>
+                                <td>{{ order.delivery_method }}</td>
+                                <td>{{ order.payment_method }}</td>
+                                <td>total price</td>
+                                <td><a href="{% url "profiles:order_detail" pk=order.id %}">View more</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    <p>You haven't created any orders.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

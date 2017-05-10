@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>Order #{{ order.id }}</h1>
+
+                <p>
+                    <strong>Status: </strong>{{ order.status|capfirst }} </br>
+                    <strong>Created at: </strong>{{ order.created_at }} </br>
+                    <strong>Delivery type: </strong> {{ order.delivery_method }}
+                </p>
+
+                <h3>Order details</h3>
+                <table class="table table-responsive vertical-middle">
+                    <tr>
+                        <th>Image</th>
+                        <th>Product name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Price total</th>
+                    </tr>
+                    {% for item in order.items.all %}
+                        <tr>
+                            <td><a href="{% url "products:detail" item.product.slug %}"><img
+                                    class="img-responsive"
+                                    src="{% thumbnail item.product.image 50x50 crop %}"
+                                    alt="{{ item.product.name }}"></a>
+                            </td>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.total_price }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
