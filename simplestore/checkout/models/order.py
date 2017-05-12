@@ -1,4 +1,5 @@
 from _decimal import Decimal
+import uuid
 
 from simplestore.cart.models import Cart
 from django.conf import settings
@@ -12,6 +13,7 @@ from .payment import Payment
 
 
 class Order(models.Model):
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     full_name = models.CharField(max_length=120)
