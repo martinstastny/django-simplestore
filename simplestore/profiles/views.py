@@ -16,10 +16,16 @@ from .models import Profile
 def profile_index(request):
     return render(request, "profile_index.html")
 
+
 # Profile Detail
-class ProfileDetail(DetailView):
+class ProfileDetail(LoginRequiredMixin, DetailView):
     template_name = "profile_detail.html"
+    login_url = reverse_lazy('profiles:login')
     model = Profile
+
+    def get_object(self, queryset=None):
+        return Profile.objects.get(pk=self.request.user.pk)
+
 
 # Registration Form
 class RegistrationFormView(FormView):
@@ -42,6 +48,9 @@ class UpdateProfileForm(LoginRequiredMixin, UpdateView):
     model = Profile
     success_url = reverse_lazy('homepage')
     login_url = reverse_lazy('profiles:login')
+
+    def get_object(self, queryset=None):
+        return Profile.objects.get(pk=self.request.user.pk)
 
 
 class ProfileOrdersView(LoginRequiredMixin, ListView):
@@ -82,12 +91,12 @@ class AuthenticationForm(FormView):
             messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully logged in.')
             return super(AuthenticationForm, self).form_valid(form)
         else:
-            response = super(AuthenticationForm,self).form_invalid(form)
+            response = super(AuthenticationForm, self).form_invalid(form)
             messages.add_message(self.request, messages.WARNING, 'Wrong email or password. Please try again')
             return response
+
 
 # Logout View
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
-
