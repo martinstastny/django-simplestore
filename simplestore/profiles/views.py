@@ -16,6 +16,7 @@ from .models import Profile
 def profile_index(request):
     return render(request, "profile_index.html")
 
+
 # Profile Detail
 class ProfileDetail(LoginRequiredMixin, DetailView):
     template_name = "profile_detail.html"
@@ -90,12 +91,12 @@ class AuthenticationForm(FormView):
             messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully logged in.')
             return super(AuthenticationForm, self).form_valid(form)
         else:
-            response = super(AuthenticationForm,self).form_invalid(form)
+            response = super(AuthenticationForm, self).form_invalid(form)
             messages.add_message(self.request, messages.WARNING, 'Wrong email or password. Please try again')
             return response
+
 
 # Logout View
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
-
