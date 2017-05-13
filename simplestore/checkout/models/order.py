@@ -1,11 +1,11 @@
-from _decimal import Decimal
+from decimal import Decimal
 import uuid
 
-from simplestore.cart.models import Cart
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
+from simplestore.cart.models import Cart
 from simplestore.products.models.product import Product
 from .address import Address
 from .delivery import Delivery

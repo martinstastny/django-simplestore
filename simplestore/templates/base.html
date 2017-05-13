@@ -32,7 +32,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
                     <li>
-                        <a href="{% url 'profiles:detail' user.id %}"><i class="fa fa-user"
+                        <a href="{% url 'profiles:detail' %}"><i class="fa fa-user"
                                                                          aria-hidden="true"></i></a></li>
                 {% else %}
                     <li><a href="{% url 'profiles:login' %}"><i class="fa fa-user" aria-hidden="true"></i></a></li>

@@ -152,6 +152,7 @@ SITE_ID = 1
 CMS_PERMISSION = True
 
 AUTH_USER_MODEL = 'profiles.Profile'
+LOGIN_URL = '/profiles/login/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
