@@ -26,6 +26,7 @@ class CartView(TemplateView):
 
         return context
 
+
 # Removing item from cart
 class RemoveCartItemView(DeleteView):
     model = CartItem
