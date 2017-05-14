@@ -12,7 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(source='product.id')
+    product_id = serializers.IntegerField(source='product.id')
     name = serializers.StringRelatedField(source='product.name')
     price = serializers.StringRelatedField(source='product.price')
     perex = serializers.StringRelatedField(source='product.perex')
@@ -21,7 +21,18 @@ class CartItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartItem
-        fields = ('id', 'name', 'image', 'url', 'perex', 'date_added', 'price', 'quantity', 'total_price',)
+        fields = (
+            'id',
+            'name',
+            'product_id',
+            'image',
+            'url',
+            'perex',
+            'date_added',
+            'price',
+            'quantity',
+            'total_price',
+        )
 
 
 class CartSerializer(serializers.ModelSerializer):
