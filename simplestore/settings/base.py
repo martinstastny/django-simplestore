@@ -36,10 +36,12 @@ INSTALLED_APPS = (
     'mptt',
     'crispy_forms',
     'storages',
+    'rest_framework',
+    'webpack_loader',
     'simplestore.products',
     'simplestore.cart',
     'simplestore.checkout',
-    'webpack_loader',
+    'simplestore.api',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -172,3 +174,17 @@ ORDER_STATUS_CHOICES = (
     ('shipped', 'Shipped'),
     ('canceled', 'Cancelled'),
 )
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES' : (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}

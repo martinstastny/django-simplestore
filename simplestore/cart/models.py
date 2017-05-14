@@ -19,7 +19,7 @@ class Cart(models.Model):
         unique_together = ('user', 'session_key')
 
     def update_subtotal(self):
-        items = self.cartitem_set.all()
+        items = self.items.all()
         subtotal = 0
         for item in items:
             subtotal += Decimal(item.total_price)
@@ -27,7 +27,7 @@ class Cart(models.Model):
         self.save()
 
     def get_total_quantity_of_items(self):
-        qty = self.cartitem_set.all().aggregate(sum=models.Sum('quantity'))
+        qty = self.items.all().aggregate(sum=models.Sum('quantity'))
         return qty['sum']
 
     def __str__(self):
@@ -35,8 +35,8 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    cart = models.ForeignKey(Cart, null=True, related_name='items', blank=True)
+    product = models.ForeignKey(Product, related_name='products', on_delete=models.SET_NULL, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)

@@ -17,7 +17,7 @@ class CartView(TemplateView):
         cart = get_cart(self.request, create=True)
 
         if cart:
-            items = cart.cartitem_set.select_related('product__image')
+            items = cart.items.select_related('product__image')
 
         context.update({
             'cart': cart,
