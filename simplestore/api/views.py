@@ -38,7 +38,6 @@ class CartUpdateView(APIView):
 
     def get_object(self, id):
         try:
-            print(self.request)
             cart = get_cart(self.request)
             return cart.items.get(pk=id)
         except CartItem.DoesNotExist:
