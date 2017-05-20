@@ -6,10 +6,12 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const baseConfig = require('./webpack.base.config.js');
 
 const localConfig = {
-  output:{
+  cache: true,
+  output: {
     publicPath: '/',
+    filename: 'js/[name].js',
   },
-  devtool: 'source-map',
+  devtool: false,
   devServer: {
     hot: true,
     host: 'localhost',
@@ -25,6 +27,11 @@ const localConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader?cacheDirectory',
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -54,10 +61,6 @@ const localConfig = {
       },
     }),
     new BundleTracker({filename: './webpack-stats.json'}),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new BrowserSyncPlugin({

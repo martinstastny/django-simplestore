@@ -15,6 +15,11 @@ const prodConfig = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader?cacheDirectory',
+        exclude: [/node_modules/, /bower_components/],
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: ['css-loader'],
@@ -35,10 +40,6 @@ const prodConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
-    }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
     }),
     new BundleTracker({filename: './webpack-stats.json'}),
     new ExtractTextPlugin('css/[name]-[hash].css'),

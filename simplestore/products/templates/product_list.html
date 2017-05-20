@@ -9,8 +9,9 @@
                     <li class="product-list__item col-xs-6 col-md-4">
                         <a href="{% url "products:detail" object.slug %}">
                             {% if object.image %}
-                                <img class="lazy img-responsive full-w"
-                                     data-original="{% thumbnail object.image 360x480 crop %}"
+                                <img class="b-lazy img-responsive full-w"
+                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                     data-src="{% thumbnail object.image 360x480 crop %}"
                                      alt="{{ object.name }}">
                             {% endif %}
                             <h2>{{ object.name }}</h2>

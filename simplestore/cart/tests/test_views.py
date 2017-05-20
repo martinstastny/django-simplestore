@@ -142,7 +142,7 @@ class CartViewsTests(TestCase):
 
         cart_item = self._create_testing_cart_item(cart_instance=cart, product_instance=self.test_product)
 
-        response = self.client.post(reverse('cart:update', kwargs={'product_id': cart_item.product_id}),
+        response = self.client.post(reverse('cart:update', kwargs={'pk': cart_item.pk}),
                                     data={'cart_item_quantity': '2'}, follow=True)
 
         messages = [msg for msg in get_messages(response.wsgi_request)]

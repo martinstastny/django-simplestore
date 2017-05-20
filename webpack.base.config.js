@@ -19,7 +19,8 @@ baseConfig.config = {
   cache: true,
   context: path.resolve(__dirname, STATIC_ROOT),
   entry: {
-    app: 'js/index.js',
+    main: 'js/main.jsx',
+    cart: 'js/cart.jsx',
   },
   output: {
     path: path.resolve(__dirname, baseConfig.paths.BUNDLE_ROOT_DEV),
