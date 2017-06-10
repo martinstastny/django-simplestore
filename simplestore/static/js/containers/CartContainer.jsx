@@ -15,9 +15,21 @@ export default class CartContainer extends React.Component {
     apiUrl: PropTypes.string.isRequired,
   };
 
+  static defaultProps = {
+    apiUrl: '',
+  };
+
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: {
+        items: [],
+      },
+    };
+  }
+
+  componentDidMount() {
+    this.getCart();
   }
 
   /**
@@ -76,10 +88,6 @@ export default class CartContainer extends React.Component {
       .then(() => {
         this.getCart();
       });
-  }
-
-  componentDidMount() {
-    this.getCart();
   }
 
   render() {
