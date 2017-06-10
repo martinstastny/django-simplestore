@@ -6,6 +6,8 @@ axios.defaults.withCredentials = true;
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
+import CartTable from 'components/cart/CartTable';
+
 
 export default class CartContainer extends React.Component {
 
@@ -15,13 +17,31 @@ export default class CartContainer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   /**
-   * Get Cart
-   * @param {string} url - The Cart API URL endpoint
+   * Event handler for deleting Cart Item
+   * @param {event} event
+   * @param {number} cartItemId - The Cart Item Id
    */
-  getCart(url) {
+  onCartItemDelete = (event, cartItemId) => {
+    this.deleteCartItem(cartItemId);
+  };
+
+  /**
+   * Event handler for updating Cart Item
+   * @param event
+   * @param cartItemId
+   */
+  onCartItemQuantityChange = (event, cartItemId) => {
+    this.updateCartItemQuantity(event, cartItemId);
+  };
+
+  /**
+   * Get Cart
+   */
+  getCart() {
     axios.get(this.props.apiUrl)
       .then((response) => {
         this.setState({ data: response.data });
@@ -53,15 +73,27 @@ export default class CartContainer extends React.Component {
   updateCartItemQuantity(event, id) {
     const qty = event.target.value;
     axios.patch(`${this.props.apiUrl}${id}/`, { quantity: qty })
-      .then((response) => {
+      .then(() => {
         this.getCart();
       });
   }
 
+  componentDidMount() {
+    this.getCart();
+  }
+
   render() {
-    return(
-      <CartTable></CartTable>
-    )
+    if (this.state.data) {
+      return (
+        <CartTable
+          onDelete={this.onCartItemDelete}
+          onQtyChange={this.onCartItemQuantityChange}
+          data={this.state.data}
+        />
+      );
+    }
+
+    return (<div>Loading...</div>);
   }
 
 }
