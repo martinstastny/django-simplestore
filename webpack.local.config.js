@@ -38,19 +38,7 @@ const localConfig = {
       },
       {
         test: /\.(sass|scss)$/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-          },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -60,15 +48,15 @@ const localConfig = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
-    new BundleTracker({filename: './webpack-stats.json'}),
+    new BundleTracker({ filename: './webpack-stats.json' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: '8002',
-      proxy: 'http://localhost:8080',
-      open: false,
-    }, {reload: false}),
+    // new BrowserSyncPlugin({
+    //   host: 'localhost',
+    //   port: '8002',
+    //   proxy: 'http://localhost:8080',
+    //   open: false,
+    // }, { reload: false }),
   ],
 
 };

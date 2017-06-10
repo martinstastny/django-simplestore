@@ -4,4 +4,4 @@ import Cart from './components/cart';
 
 const cartElement = document.getElementById('react-app');
 
-render(<Cart apiurl={cartElement.getAttribute('data-apiurl')} />, cartElement);
+render(<Cart apiUrl={cartElement.getAttribute('data-apiurl')} />, cartElement);
