@@ -6,10 +6,12 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const baseConfig = require('./webpack.base.config.js');
 
 const localConfig = {
-  output:{
+  cache: true,
+  output: {
     publicPath: '/',
+    filename: 'js/[name].js',
   },
-  devtool: 'source-map',
+  devtool: false,
   devServer: {
     hot: true,
     host: 'localhost',
@@ -26,24 +28,17 @@ const localConfig = {
   module: {
     rules: [
       {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader?cacheDirectory',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(sass|scss)$/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-          },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
@@ -53,19 +48,15 @@ const localConfig = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
-    new BundleTracker({filename: './webpack-stats.json'}),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
+    new BundleTracker({ filename: './webpack-stats.json' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: '8002',
-      proxy: 'http://localhost:8080',
-      open: false,
-    }, {reload: false}),
+    // new BrowserSyncPlugin({
+    //   host: 'localhost',
+    //   port: '8002',
+    //   proxy: 'http://localhost:8080',
+    //   open: false,
+    // }, { reload: false }),
   ],
 
 };

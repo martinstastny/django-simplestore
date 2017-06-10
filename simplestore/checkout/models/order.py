@@ -36,7 +36,7 @@ class Order(models.Model):
         return reverse('checkout:order-confirmation', kwargs={'pk': self.pk})
 
     def create_order_items(self):
-        cart_items = self.cart.cartitem_set.all()
+        cart_items = self.cart.items.all()
         for item in cart_items:
             OrderItem.objects.create(order=self, product=item.product, price=item.product.price,
                                      quantity=item.quantity)

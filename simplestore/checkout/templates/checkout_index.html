@@ -42,7 +42,7 @@
                 <div class="col-sm-12 col-md-4 pull-right">
                     <div class="well">
                         <legend>Order Review</legend>
-                        {% for cart_item in cart.cartitem_set.all %}
+                        {% for cart_item in cart.items.all %}
                             <div class="media">
                                 <div class="media-left">
                                     <a href="{% url "products:detail" cart_item.product.slug %}">

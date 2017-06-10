@@ -39,6 +39,10 @@ class Product(models.Model):
     class Meta:
         ordering=['-created_at']
 
+    @property
+    def get_image_url(self):
+        return self.image.url
+
     def get_absolute_url(self):
         return reverse('products:detail', kwargs={'slug': self.slug})
 

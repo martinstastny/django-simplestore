@@ -131,7 +131,7 @@ class CartViewsTests(TestCase):
         self.assertEqual(messages[0].tags, 'success', 'Message type should return success type')
         self.assertEqual(messages[0].message, 'The item has been deleted from your cart.',
                          'Message text should be equal to: The item has been deleted from your cart')
-        self.assertEqual(cart.cartitem_set.count(), 0, 'Cart should have zero items.')
+        self.assertEqual(cart.items.count(), 0, 'Cart should have zero items.')
 
     def test_updating_cart_item(self):
         session = self.client.session
@@ -142,12 +142,12 @@ class CartViewsTests(TestCase):
 
         cart_item = self._create_testing_cart_item(cart_instance=cart, product_instance=self.test_product)
 
-        response = self.client.post(reverse('cart:update', kwargs={'product_id': cart_item.product_id}),
+        response = self.client.post(reverse('cart:update', kwargs={'pk': cart_item.pk}),
                                     data={'cart_item_quantity': '2'}, follow=True)
 
         messages = [msg for msg in get_messages(response.wsgi_request)]
 
-        updated_quantity = response.context['cart'].cartitem_set.first().quantity
+        updated_quantity = response.context['cart'].items.first().quantity
         cart_item.quantity = updated_quantity
         cart_item.save()
 
@@ -182,9 +182,9 @@ class CartViewsTests(TestCase):
                                     data={'quantity': 2}, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['cart'].cartitem_set.first().quantity, 2,
+        self.assertEqual(response.context['cart'].items.first().quantity, 2,
                          'Quantity should be equal to 2')
-        self.assertEqual(response.context['cart'].cartitem_set.count(), 1)
+        self.assertEqual(response.context['cart'].items.count(), 1)
 
     def test_adding_item_to_cart_as_logged_user(self):
         session = self.client.session
@@ -202,8 +202,8 @@ class CartViewsTests(TestCase):
         cart.save()
 
         self.assertRedirects(response, '/cart/', 302)
-        self.assertEqual(response.context['cart'].cartitem_set.count(), 1)
-        self.assertEqual(response.context['cart'].cartitem_set.first().quantity, 3)
+        self.assertEqual(response.context['cart'].items.count(), 1)
+        self.assertEqual(response.context['cart'].items.first().quantity, 3)
 
     def test_get_total_quantity_of_items_in_cart(self):
         session = self.client.session

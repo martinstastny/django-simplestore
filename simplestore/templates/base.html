@@ -8,8 +8,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% render_bundle 'app' 'css' %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% render_bundle 'main' 'css' %}
+    <link async rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -33,7 +33,7 @@
                     <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
                     <li>
                         <a href="{% url 'profiles:detail' %}"><i class="fa fa-user"
-                                                                         aria-hidden="true"></i></a></li>
+                                                                 aria-hidden="true"></i></a></li>
                 {% else %}
                     <li><a href="{% url 'profiles:login' %}"><i class="fa fa-user" aria-hidden="true"></i></a></li>
                 {% endif %}
@@ -59,12 +59,11 @@
             </div>
         </div>
     {% endif %}
-
     {% block content %}{% endblock %}
 </main>
 
-{% block scripts %}
-    {% render_bundle 'app' 'js' %}
-{% endblock %}
+{% render_bundle 'main' 'js' %}
+{% block scripts %}{% endblock %}
+
 </body>
 </html>

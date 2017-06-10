@@ -17,7 +17,7 @@ class CartView(TemplateView):
         cart = get_cart(self.request, create=True)
 
         if cart:
-            items = cart.cartitem_set.select_related('product__image')
+            items = cart.items.select_related('product__image')
 
         context.update({
             'cart': cart,
@@ -25,6 +25,7 @@ class CartView(TemplateView):
         })
 
         return context
+
 
 # Removing item from cart
 class RemoveCartItemView(DeleteView):
@@ -52,7 +53,7 @@ class UpdateCartItemView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         cart = get_cart(request)
-        cart_item = CartItem.objects.get(cart=cart, product_id=self.kwargs['product_id'])
+        cart_item = CartItem.objects.get(cart=cart, pk=self.kwargs['pk'])
         cart_item.quantity = request.POST['cart_item_quantity']
         cart_item.save()
         return self.form_valid(form)
