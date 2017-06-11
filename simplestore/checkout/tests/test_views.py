@@ -77,10 +77,10 @@ class CheckoutTests(TestCase):
 
         return user
 
-    '''
-     Test when accessing /checkout url without items in cart will redirect back to cart
-    '''
     def test_access_checkout_url_with_empty_cart(self):
+        """
+         Test when accessing /checkout url without items in cart will redirect back to cart 
+        """
         session = self.client.session
         request = self.client.get(reverse('checkout:index'))
         request.session = session
@@ -91,11 +91,10 @@ class CheckoutTests(TestCase):
         self.assertEqual(cart, None, "Cart should not exists")
         self.assertRedirects(request, reverse('cart:index'), 302, 200, "It should be redirected to cart index.")
 
-    """
-     Test if checkout is receiving Cart instance 
-    """
-
     def test_cart_available_in_checkout(self):
+        """
+         Test if checkout is receiving Cart instance 
+        """
         session = self.client.session
 
         test_cart = self._create_testing_cart()
@@ -111,11 +110,10 @@ class CheckoutTests(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertTemplateUsed(r, 'checkout_index.html')
 
-    """
-     Test Order model string representation
-    """
-
     def test_order_string_representation(self):
+        """
+         Test Order model string representation
+        """
         test_cart = self._create_testing_cart()
         test_user = self._create_testing_user()
 
@@ -126,11 +124,10 @@ class CheckoutTests(TestCase):
 
         self.assertEqual(str(test_order), order_str)
 
-    """
-     Test Order Item string representation
-    """
-
     def test_order_item_string_representation(self):
+        """
+         Test Order Item string representation
+        """
         test_user = self._create_testing_user()
         test_cart = self._create_testing_cart()
         test_cart.save()

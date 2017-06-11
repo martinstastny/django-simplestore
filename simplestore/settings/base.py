@@ -64,7 +64,8 @@ DATABASES = {
         'HOST': '',
         'USER': '',
         'PASSWORD': '',
-        'PORT': ''
+        'PORT': '',
+        'ATOMIC_REQUESTS': True,
     }
 }
 
@@ -185,3 +186,13 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+STRIPE_PUBLIC_API_KEY = 'pk_live_XCIy73JPF0V2aT9uasOVV1Qm'
+
+EMAIL_ADMIN = 'test@martinstastny.cz'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'test@martinstastny.cz'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
