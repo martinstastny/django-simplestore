@@ -14,8 +14,9 @@ class CartView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CartView, self).get_context_data(**kwargs)
 
-        cart = get_cart(self.request, create=True)
+        cart = get_cart(self.request)
 
+        items = []
         if cart:
             items = cart.items.select_related('product__image')
 
@@ -23,9 +24,7 @@ class CartView(TemplateView):
             'cart': cart,
             'cart_items': items
         })
-
         return context
-
 
 # Removing item from cart
 class RemoveCartItemView(DeleteView):

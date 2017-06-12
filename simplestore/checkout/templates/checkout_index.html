@@ -15,27 +15,24 @@
         </div>
 
         <div class="row">
-            <form action="{{ request.path }}" method="post">
+            <form action="{{ request.path }}" method="post" novalidate>
                 {% csrf_token %}
                 <div class="col-sm-12 col-md-4">
                     <div class="well">
                         <legend>Shipping Details</legend>
-                        {{ order_form|crispy }}
-                        {{ address_form|crispy }}
-                    </div>
-                    <div class="well">
-                        <legend>Billing Details</legend>
+                        {{ customer_order_form|crispy }}
+                        {{ shipping_address_form|crispy }}
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 ">
                     <div class="well">
                         <legend>Delivery methods</legend>
-                        {{ delivery_form|crispy }}
+                        {{ delivery_method_form|crispy }}
                     </div>
                     <div class="well">
                         <legend>Payment</legend>
-                        {{ payment_form|crispy }}
+{#                        {{ payment_form|crispy }}#}
                     </div>
                 </div>
 

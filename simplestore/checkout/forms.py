@@ -6,7 +6,7 @@ from .models.delivery import Delivery
 from .models.payment import Payment
 
 
-class AddressForm(forms.ModelForm):
+class ShippingAddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = [
@@ -14,11 +14,11 @@ class AddressForm(forms.ModelForm):
             'city',
             'postcode',
             'country',
-            'use_as_billing'
+            # 'use_as_billing'
         ]
 
 
-class OrderForm(forms.ModelForm):
+class CustomerOrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = [
@@ -28,11 +28,11 @@ class OrderForm(forms.ModelForm):
         ]
 
 
-class DeliveryForm(forms.Form):
+class DeliveryMethodForm(forms.Form):
     delivery_method = forms.ModelChoiceField(queryset=Delivery.objects.all(), widget=forms.RadioSelect,
                                              empty_label=None, initial=None, required=True, label='')
 
-
 class PaymentForm(forms.Form):
-    payment_method = forms.ModelChoiceField(queryset=Payment.objects.all(), widget=forms.RadioSelect, empty_label=None,
-                                            initial=None, label='')
+    number = forms.IntegerField()
+    expire_date = forms.CharField()
+    ccv = forms.IntegerField()

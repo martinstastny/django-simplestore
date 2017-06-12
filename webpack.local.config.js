@@ -51,12 +51,12 @@ const localConfig = {
     new BundleTracker({ filename: './webpack-stats.json' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    // new BrowserSyncPlugin({
-    //   host: 'localhost',
-    //   port: '8002',
-    //   proxy: 'http://localhost:8080',
-    //   open: false,
-    // }, { reload: false }),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: '8002',
+      proxy: 'http://localhost:8080',
+      open: false,
+    }, { reload: false }),
   ],
 
 };

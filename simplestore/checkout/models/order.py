@@ -24,10 +24,9 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',
                                          null=True)
-    billing_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='billing_address', null=True)
     delivery_method = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING, related_name='delivery_method',
                                         null=True)
-    payment_method = models.ForeignKey(Payment, on_delete=models.DO_NOTHING, related_name='payment_method', null=True)
+    # payment_method = models.ForeignKey(Payment, on_delete=models.DO_NOTHING, related_name='payment_method', null=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -38,8 +37,12 @@ class Order(models.Model):
     def create_order_items(self):
         cart_items = self.cart.items.all()
         for item in cart_items:
-            OrderItem.objects.create(order=self, product=item.product, price=item.product.price,
-                                     quantity=item.quantity)
+            OrderItem.objects.create(
+                order=self,
+                product=item.product,
+                price=item.product.price,
+                quantity=item.quantity,
+            )
 
     def __str__(self):
         return 'Order num. {0}'.format(self.id)
@@ -51,11 +54,6 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        self.total_price = self.get_total_price()
-        return super(OrderItem, self).save()
 
     def get_total_price(self):
         return Decimal(self.price) * Decimal(self.quantity)
