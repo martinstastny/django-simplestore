@@ -79,7 +79,7 @@ class CheckoutTests(TestCase):
 
     def test_access_checkout_url_with_empty_cart(self):
         """
-         Test when accessing /checkout url without items in cart will redirect back to cart 
+         Test when accessing /checkout url without items in cart will redirect back to cart
         """
         session = self.client.session
         request = self.client.get(reverse('checkout:index'))
@@ -93,7 +93,7 @@ class CheckoutTests(TestCase):
 
     def test_cart_available_in_checkout(self):
         """
-         Test if checkout is receiving Cart instance 
+         Test if checkout is receiving Cart instance
         """
         session = self.client.session
 

@@ -12,15 +12,14 @@ class CheckoutOrderCreateView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.cart = get_cart(self.request)
-
         if not self.cart:
             return redirect('cart:index')
 
         self.forms = self.get_order_forms()
+
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-
         if not all(form.is_valid() for form in self.forms.values()):
             return self.get(request, *args, **kwargs)
 
@@ -68,17 +67,17 @@ class CheckoutOrderCreateView(TemplateView):
 
     def clean_session(self):
         """
-        Clean Cart session for authenticated user when order is processed  
+        Clean Cart session for authenticated user when order is processed
         """
         try:
             del self.request.session['user_cart']
         except KeyError:
             self.request.session.create()
 
-    def send_email_confirmation(self, order):
+    @staticmethod
+    def send_email_confirmation(order):
         """
-        Send email with order details
-        :param order: 
+        Send email with order details 
         """
         message = render_to_string("emails/order_conf.txt", {
             'order': order,
