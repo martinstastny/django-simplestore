@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Thank you for your order {{ order.full_name }}</h2>
+<h3>Your Order ID: {{ order.get_short_uuid }}</h3>
+
+
+<h3>Shipping Details:</h3>
+
+{{ order.full_name }}
+{{ order.shipping_address }}
+
+<h3>
+    Contact Details:
+</h3>
+Email: {{ order.email }}
+Phone: {{ order.phone }}
+
+<h2>Order Details:</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.cart.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.total_price }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
