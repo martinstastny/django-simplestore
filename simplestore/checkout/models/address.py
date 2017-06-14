@@ -16,5 +16,13 @@ class Address(models.Model):
     class Meta:
         verbose_name_plural = 'Addresses'
 
+    def get_serialized_data(self):
+        return {
+            'street': self.street,
+            'city': self.city,
+            'postcode': self.postcode,
+            'country': self.country
+        }
+
     def __str__(self):
         return '{0}, {1}, {2}'.format(self.street, self.city, self.country)

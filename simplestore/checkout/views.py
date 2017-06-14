@@ -1,10 +1,9 @@
 from django.shortcuts import redirect
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
 from django.views.generic import DetailView, TemplateView
 from simplestore.cart.mixins import get_cart
 from .forms import CustomerOrderForm, ShippingAddressForm, DeliveryMethodForm
 from .models.order import Order
+from . import tasks
 
 
 class CheckoutOrderCreateView(TemplateView):
@@ -24,11 +23,10 @@ class CheckoutOrderCreateView(TemplateView):
             return self.get(request, *args, **kwargs)
 
         order = self.create_order()
-
         self.clean_session()
-        self.send_email_confirmation(order)
+        self.order_created(order)
 
-        return redirect(order.get_absolute_url())
+        return redirect('checkout:order-confirmation', str(order.slug))
 
     def get_context_data(self, **kwargs):
         return {
@@ -74,23 +72,11 @@ class CheckoutOrderCreateView(TemplateView):
         except KeyError:
             self.request.session.create()
 
-    @staticmethod
-    def send_email_confirmation(order):
-        """
-        Send email with order details 
-        """
-        message = render_to_string("emails/order_conf.txt", {
-            'order': order,
-        })
-        mail = EmailMessage(
-            subject="Order confirmation",
-            body=message,
-            from_email='test@martinstastny.cz',
-            to=['me@martinstastny.cz'],
-            reply_to=['test@martinstastny.cz'],
-        )
-        mail.content_subtype = "html"
-        mail.send()
+    def order_created(self, order):
+        email_data = {
+            'order': order.get_serialized_data(),
+        }
+        return tasks.send_email_confirmation.delay(email_data)
 
 
 class OrderConfirmationView(DetailView):
