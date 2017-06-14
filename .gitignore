@@ -15,6 +15,7 @@ db.sqlite3
 simplestore/settings/production.py
 
 /coverage.xml
+dump.rdb
 /node_modules/
 /simplestore/static/bundles/dev/
 /simplestore/static/bundles/prod/

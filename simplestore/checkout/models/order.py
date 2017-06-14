@@ -1,5 +1,5 @@
 from decimal import Decimal
-import uuid
+from uuid import uuid4
 
 from django.conf import settings
 from django.db import models
@@ -12,7 +12,8 @@ from .delivery import Delivery
 
 
 class Order(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    uuid = models.UUIDField(default=uuid4, unique=True, editable=False)
+    slug = models.UUIDField(default=uuid4, unique=True, editable=False)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     full_name = models.CharField(max_length=120)
@@ -40,7 +41,7 @@ class Order(models.Model):
         return self.cart.items.all()
 
     def get_absolute_url(self):
-        return reverse('checkout:order-confirmation', kwargs={'pk': self.pk})
+        return reverse('checkout:order-confirmation', kwargs={'slug': str(self.slug)})
 
     def create_order_items(self):
         cart_items = self.cart.items.all()

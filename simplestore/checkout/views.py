@@ -25,7 +25,8 @@ class CheckoutOrderCreateView(TemplateView):
         order = self.create_order()
         self.clean_session()
         self.order_created(order)
-        return redirect(order.get_absolute_url())
+
+        return redirect('checkout:order-confirmation', str(order.slug))
 
     def get_context_data(self, **kwargs):
         return {

@@ -9,8 +9,8 @@
 <h3>Shipping Details:</h3>
 
 {{ order.full_name }}
-{{ order.shipping_address.street }} <br/>
-{{ order.shipping_address.city }} <br/>
+{{ order.shipping_address.street }} <br />
+{{ order.shipping_address.city }} <br />
 {{ order.shipping_address.postcode }}
 
 <h3>
@@ -23,22 +23,22 @@ Phone: {{ order.phone }}
 
 <table>
     <thead>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total Price</th>
-        </tr>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total Price</th>
+    </tr>
     </thead>
     <tbody>
-        {% for item in order.order_items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.price }}</td>
-                <td>{{ item.total_price }}</td>
-            </tr>
-        {% endfor %}
+    {% for item in order.order_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.total_price }}</td>
+        </tr>
+    {% endfor %}
     </tbody>
 </table>
 </body>
