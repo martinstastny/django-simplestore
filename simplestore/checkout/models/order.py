@@ -72,6 +72,7 @@ class Order(models.Model):
             'full_name': self.full_name,
             'phone': self.phone,
             'status': self.status,
+            'shipping_address': self.shipping_address.get_serialized_data(),
             'order_items': self.get_serialized_items(),
         }
 

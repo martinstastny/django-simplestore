@@ -9,7 +9,9 @@
 <h3>Shipping Details:</h3>
 
 {{ order.full_name }}
-{{ order.shipping_address }}
+{{ order.shipping_address.street }} <br/>
+{{ order.shipping_address.city }} <br/>
+{{ order.shipping_address.postcode }}
 
 <h3>
     Contact Details:
@@ -29,11 +31,11 @@ Phone: {{ order.phone }}
         </tr>
     </thead>
     <tbody>
-        {% for item in order.cart.items.all %}
+        {% for item in order.order_items %}
             <tr>
-                <td>{{ item.product.name }}</td>
+                <td>{{ item.name }}</td>
                 <td>{{ item.quantity }}</td>
-                <td>{{ item.product.price }}</td>
+                <td>{{ item.price }}</td>
                 <td>{{ item.total_price }}</td>
             </tr>
         {% endfor %}

@@ -30,10 +30,6 @@ class Cart(models.Model):
         qty = self.items.all().aggregate(sum=models.Sum('quantity'))
         return qty['sum']
 
-
-    def get_serialized_data(self):
-        pass
-
     def __str__(self):
         return "Cart id: {id}".format(id=self.pk)
 

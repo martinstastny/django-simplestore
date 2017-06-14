@@ -4,13 +4,11 @@ from django.core.mail import EmailMessage
 from django.template import Context
 from django.template.loader import get_template
 
-
 @task(name="send_order_confirmation", max_retries=3, soft_time_limit=5)
 def send_email_confirmation(data):
     """
-    Send email with order details 
+    Send email with order details
     """
-    print(data)
     message = get_template("emails/order_conf.html").render(Context(data))
     mail = EmailMessage(
         subject="Order confirmation",

@@ -72,12 +72,8 @@ class CheckoutOrderCreateView(TemplateView):
             self.request.session.create()
 
     def order_created(self, order):
-        """
-        Call Celery tasks here 
-        """
         email_data = {
             'order': order.get_serialized_data(),
-            'address': order.shipping_address.get_serialized_data()
         }
         return tasks.send_email_confirmation.delay(email_data)
 
