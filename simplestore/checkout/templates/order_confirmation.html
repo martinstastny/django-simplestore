@@ -32,7 +32,7 @@
                             <td width="150"><h5>{{ item.product.name }}</h5></td>
                             <td>{{ item.product.price }}</td>
                             <td class="text-center" width="100">{{ item.quantity }}</td>
-                            <td>{{ item.total_price }}</td>
+                            <td>{{ item.get_total_price }}</td>
                         </tr>
                     {% endfor %}
                 </table>

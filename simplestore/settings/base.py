@@ -36,7 +36,6 @@ INSTALLED_APPS = (
     'mptt',
     'crispy_forms',
     'storages',
-    'celery',
     'rest_framework',
     'webpack_loader',
     'simplestore.products',
