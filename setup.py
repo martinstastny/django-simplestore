@@ -20,6 +20,12 @@ CLASSIFIERS = [
 INSTALL_REQUIREMENTS = [
     'Django>=1.10.5',
     'django-webpack-loader>=0.4.1',
+    'easy_thumbnails>=2.3',
+    'django-filer>=1.2.6',
+    'django-mptt>=0.8.7',
+    'django-crispy-forms>=1.6.1',
+    'django-storages>=1.5.2',
+    'djangorestframework>=3.6.3',
 ]
 
 setup(
