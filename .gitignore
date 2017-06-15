@@ -19,3 +19,5 @@ dump.rdb
 /node_modules/
 /simplestore/static/bundles/dev/
 /simplestore/static/bundles/prod/
+dist
+django_simplestore.egg-info
