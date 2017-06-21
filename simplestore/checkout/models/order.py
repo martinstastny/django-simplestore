@@ -11,6 +11,15 @@ from .address import Address
 from .delivery import Delivery
 
 
+# Orders Statuses
+ORDER_STATUS_CHOICES = (
+    ('created', 'Created'),
+    ('in_progress', 'In Progress'),
+    ('paid', 'Paid'),
+    ('shipped', 'Shipped'),
+    ('canceled', 'Cancelled'),
+)
+
 class Order(models.Model):
     uuid = models.UUIDField(default=uuid4, unique=True, editable=False)
     slug = models.UUIDField(default=uuid4, unique=True, editable=False)
@@ -19,7 +28,7 @@ class Order(models.Model):
     full_name = models.CharField(max_length=120)
     email = models.EmailField()
     phone = models.CharField(max_length=120, null=True, blank=True)
-    status = models.CharField(choices=settings.ORDER_STATUS_CHOICES, max_length=120, default='Created')
+    status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=120, default='Created')
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',

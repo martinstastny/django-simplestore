@@ -1,5 +1,5 @@
 from decimal import Decimal
-from simplestore.cart.models import Cart
+from .models import Cart
 
 
 def cart_item_pre_save_receiver(sender, instance, *args, **kwargs):

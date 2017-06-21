@@ -26,6 +26,7 @@ INSTALL_REQUIREMENTS = [
     'django-crispy-forms>=1.6.1',
     'django-storages>=1.5.2',
     'djangorestframework>=3.6.3',
+    'celery>=4.0.2',
 ]
 
 setup(

@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'webpack_loader',
     'simplestore.products',
-    'simplestore.cart',
+    'simplestore.cart.apps.CartConfig',
     'simplestore.checkout',
     'simplestore.api',
 )
@@ -161,21 +161,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 FILER_DEBUG = True
 
-# Addresses Types
-ADDRESS_TYPE = (
-    ('billing', 'Billing'),
-    ('shipping', 'Shipping'),
-)
-
-# Orders Statuses
-ORDER_STATUS_CHOICES = (
-    ('created', 'Created'),
-    ('in_progress', 'In Progress'),
-    ('paid', 'Paid'),
-    ('shipped', 'Shipped'),
-    ('canceled', 'Cancelled'),
-)
-
 # REST FRAMEWORK
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES' : (
@@ -200,7 +185,7 @@ EMAIL_USE_TLS = True
 
 # CELERY
 BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

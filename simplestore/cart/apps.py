@@ -5,7 +5,7 @@ class CartConfig(AppConfig):
     name = 'simplestore.cart'
 
     def ready(self):
-        from simplestore.cart import signals
+        from . import signals
         pre_save.connect(receiver=signals.cart_item_pre_save_receiver, sender='cart.CartItem')
         post_save.connect(receiver=signals.cart_item_post_save_receiver, sender='cart.CartItem')
         post_delete.connect(receiver=signals.cart_item_post_save_receiver, sender='cart.CartItem')
