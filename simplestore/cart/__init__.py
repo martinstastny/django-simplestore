@@ -1,1 +1,1 @@
-default_app_config = 'simplestore.apps.CartConfig'
+default_app_config = 'simplestore.apps.Cartconfig'
