@@ -2,21 +2,21 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-4 col-md-push-4">
-                <h2 class="text-center">Sign In</h2>
-                <form action="{{ request.path }}" method="post">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                </form>
-                <br/>
-                <p class="text-center">Don't have an account?<a href="{% url "profiles:register" %}"> Sign up</a></p>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-4 col-md-push-4">
+        <h2 class="text-center">Sign In</h2>
+        <form action="{{ request.path }}" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+        <br/>
+        <p class="text-center">Don't have an account?<a href="{% url "profiles:register" %}"> Sign up</a></p>
+      </div>
     </div>
-{#    <a href="{% url 'social:begin' 'instagram' %}?next=/">Login with Instagram</a>#}
-{#    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>#}
-{#    <a href="{% url 'social:begin' 'google-oauth2' %}?next=/">Login with Google</a>#}
+  </div>
+  {#    <a href="{% url 'social:begin' 'instagram' %}?next=/">Login with Instagram</a>#}
+  {#    <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>#}
+  {#    <a href="{% url 'social:begin' 'google-oauth2' %}?next=/">Login with Google</a>#}
 {% endblock %}

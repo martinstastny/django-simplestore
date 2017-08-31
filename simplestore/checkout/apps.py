@@ -2,7 +2,7 @@ from django import apps
 
 
 class AppConfig(apps.AppConfig):
-    name = 'simplestore.cart'
+    name = "simplestore.checkout"
 
     def ready(self):
         # noinspection PyUnresolvedReferences

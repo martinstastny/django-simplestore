@@ -1,13 +1,13 @@
 import datetime
 
-from simplestore.cart.mixins import get_cart
-from simplestore.cart.models import Cart, CartItem
-from simplestore.checkout.models.order import Order, OrderItem
 from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django.urls import reverse
-from simplestore.products.models.product import Product
 
+from simplestore.cart.models import Cart, CartItem
+from simplestore.cart.utils import get_cart
+from simplestore.checkout.models.order import Order, OrderItem
+from simplestore.products.models.product import Product
 from simplestore.profiles.models import Profile
 
 
@@ -32,15 +32,22 @@ class CheckoutTests(TestCase):
 
     @staticmethod
     def _create_testing_cart(*args, **kwargs):
-        cart = Cart(created=datetime.datetime.now(), updated=datetime.datetime.now(), *args, **kwargs)
+        cart = Cart(
+            created=datetime.datetime.now(),
+            updated=datetime.datetime.now(), *args, **kwargs
+        )
         cart.save()
 
         return cart
 
     @staticmethod
     def _create_testing_cart_item(cart_instance, product_instance):
-        cart_item = CartItem(cart=cart_instance, product=product_instance, quantity=1,
-                             date_added=datetime.datetime.now())
+        cart_item = CartItem(
+            cart=cart_instance,
+            product=product_instance,
+            quantity=1,
+            date_added=datetime.datetime.now()
+        )
         cart_item.save()
 
         return cart_item
@@ -79,7 +86,8 @@ class CheckoutTests(TestCase):
 
     def test_access_checkout_url_with_empty_cart(self):
         """
-         Test when accessing /checkout url without items in cart will redirect back to cart
+         Test when accessing /checkout url without items in cart will 
+         redirect back to cart
         """
         session = self.client.session
         request = self.client.get(reverse('checkout:index'))
@@ -89,7 +97,11 @@ class CheckoutTests(TestCase):
         cart = get_cart(request)
 
         self.assertEqual(cart, None, "Cart should not exists")
-        self.assertRedirects(request, reverse('cart:index'), 302, 200, "It should be redirected to cart index.")
+        self.assertRedirects(
+            request,
+            reverse('cart:index'), 302, 200,
+            "It should be redirected to cart index."
+        )
 
     def test_cart_available_in_checkout(self):
         """
@@ -98,7 +110,10 @@ class CheckoutTests(TestCase):
         session = self.client.session
 
         test_cart = self._create_testing_cart()
-        self._create_testing_cart_item(cart_instance=test_cart, product_instance=self.test_product)
+        self._create_testing_cart_item(
+            cart_instance=test_cart,
+            product_instance=self.test_product
+        )
         test_cart.session_key = session.session_key
         test_cart.save()
 
@@ -143,7 +158,8 @@ class CheckoutTests(TestCase):
         test_order_item.save()
 
         self.assertEqual(str(test_order_item),
-                         "Order item: {0} - {1}".format(test_order_item.id, test_order_item.product.name))
+            "Order item: {0} - {1}".format(test_order_item.id,
+                test_order_item.product.name))
 
     def test_order_item_get_total_price(self):
         test_order_item = OrderItem(price=1000, quantity=4)

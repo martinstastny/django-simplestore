@@ -2,10 +2,11 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import DeleteView, FormView, TemplateView
+
 from simplestore.products.models.product import Product
 from .forms import AddToCartForm
-from .mixins import get_cart
 from .models import CartItem
+from .utils import get_cart
 
 
 class CartView(TemplateView):
@@ -26,6 +27,7 @@ class CartView(TemplateView):
         })
         return context
 
+
 # Removing item from cart
 class RemoveCartItemView(DeleteView):
     model = CartItem
@@ -35,11 +37,18 @@ class RemoveCartItemView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
-        return super(RemoveCartItemView, self).delete(self.request, *args, **kwargs)
+        return super(RemoveCartItemView, self).delete(
+            self.request,
+            *args,
+            **kwargs
+        )
 
     def get_object(self, *args, **kwargs):
         cart = get_cart(self.request)
-        return CartItem.objects.get(cart=cart, product_id=self.kwargs['product_id'])
+        return CartItem.objects.get(
+            cart=cart,
+            product_id=self.kwargs['product_id']
+        )
 
 
 class UpdateCartItemView(FormView):
@@ -73,7 +82,10 @@ class AddToCartView(FormView):
         quantity = form.cleaned_data['quantity']
 
         cart = get_cart(self.request, create=True)
-        cart_item, cart_item_created = CartItem.objects.update_or_create(cart=cart, product=product)
+        cart_item, cart_item_created = CartItem.objects.update_or_create(
+            cart=cart,
+            product=product
+        )
 
         # If Cart item object has not been created  , amend quantity.
         if cart_item_created is False:

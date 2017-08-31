@@ -1,9 +1,9 @@
 from django.shortcuts import redirect
 from django.views.generic import DetailView, TemplateView
-from simplestore.cart.mixins import get_cart
+
+from simplestore.cart.utils import get_cart
 from .forms import CustomerOrderForm, ShippingAddressForm, DeliveryMethodForm
 from .models.order import Order
-from . import tasks
 
 
 class CheckoutOrderCreateView(TemplateView):
@@ -24,7 +24,6 @@ class CheckoutOrderCreateView(TemplateView):
 
         order = self.create_order()
         self.clean_session()
-        self.order_created(order)
 
         return redirect('checkout:order-confirmation', str(order.slug))
 
@@ -71,12 +70,6 @@ class CheckoutOrderCreateView(TemplateView):
             del self.request.session['user_cart']
         except KeyError:
             self.request.session.create()
-
-    def order_created(self, order):
-        email_data = {
-            'order': order.get_serialized_data(),
-        }
-        return tasks.send_email_confirmation.delay(email_data)
 
 
 class OrderConfirmationView(DetailView):

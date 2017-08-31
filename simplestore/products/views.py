@@ -11,7 +11,11 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        products = Product.objects.filter(category=self.get_object()).prefetch_related('image')
+
+        products = Product.objects.filter(
+            category=self.get_object()
+        ).prefetch_related('image')
+
         context.update({
             'products': products
         })
@@ -20,7 +24,7 @@ class CategoryDetailView(DetailView):
 
 class ProductsListView(ListView):
     model = Product
-    queryset = Product.objects.prefetch_related('image')
+    queryset = Product.objects.all().active().prefetch_related('image')
     template_name = "product_list.html"
 
 

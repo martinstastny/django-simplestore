@@ -2,41 +2,41 @@
 {% load thumbnail %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Order confirmation</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <h3>Thank you! Your order has been placed successfully.</h3> <br/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <h4>Order id: #{{ object.get_short_uuid }} </h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th colspan="1" class="text-center">Quantity</th>
-                            <th>Total Price</th>
-                        </tr>
-                    </thead>
-                    {% for item in object.items.all %}
-                        <tr>
-                            <td width="80"><img src="{% thumbnail item.product.image 50x50 crop %}"/></td>
-                            <td width="150"><h5>{{ item.product.name }}</h5></td>
-                            <td>{{ item.product.price }}</td>
-                            <td class="text-center" width="100">{{ item.quantity }}</td>
-                            <td>{{ item.get_total_price }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>Order confirmation</h2>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Thank you! Your order has been placed successfully.</h3> <br/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <h4>Order id: #{{ object.get_short_uuid }} </h4>
+        <table>
+          <thead>
+          <tr>
+            <th>Product</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th colspan="1" class="text-center">Quantity</th>
+            <th>Total Price</th>
+          </tr>
+          </thead>
+          {% for item in object.items.all %}
+            <tr>
+              <td width="80"><img src="{% thumbnail item.product.image 50x50 crop %}"/></td>
+              <td width="150"><h5>{{ item.product.name }}</h5></td>
+              <td>{{ item.product.price }}</td>
+              <td class="text-center" width="100">{{ item.quantity }}</td>
+              <td>{{ item.get_total_price }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 {% endblock %}

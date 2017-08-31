@@ -2,23 +2,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-3">
-                <ul class="list-group side-nav">
-                    <li class="list-group-item"><a href="">Edit details</a></li>
-                    <li class="list-group-item"><a href="{% url "profiles:orders" %}">Orders</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-12 col-md-6 col-md-push-1">
-                <h2>Edit details</h2>
-                <form action="{{ request.path }}">
-                    {{ form|crispy }}
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+        <ul class="list-group side-nav">
+          <li class="list-group-item"><a href="">Edit details</a></li>
+          <li class="list-group-item"><a href="{% url "profiles:orders" %}">Orders</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-12 col-md-6 col-md-push-1">
+        <h2>Edit details</h2>
+        <form action="{{ request.path }}">
+          {{ form|crispy }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
     </div>
+  </div>
 
 {% endblock %}
