@@ -11,8 +11,16 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     active = models.BooleanField(default=True)
-    price_subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    price_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price_subtotal = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+    price_total = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
     session_key = models.CharField(max_length=255, null=True)
 
     class Meta:
@@ -36,10 +44,18 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, null=True, related_name='items', blank=True)
-    product = models.ForeignKey(Product, related_name='products', on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(
+        Product,
+        related_name='products',
+        on_delete=models.DO_NOTHING
+    )
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.PositiveIntegerField(default=1)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    total_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True
+    )
 
     class Meta:
         ordering = ['date_added']

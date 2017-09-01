@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
 <body>
+<br>
 
 <h2>Thank you for your order {{ order.full_name }}</h2>
-<h3>Your Order ID: {{ order.get_short_uuid }}</h3>
+<h3>Your Order ID: {{ order.short_uuid }}</h3>
 
 
 <h3>Shipping Details:</h3>
 
-{{ order.full_name }}
-{{ order.shipping_address.street }} <br />
-{{ order.shipping_address.city }} <br />
+{{ order.full_name }} </br>
+{{ order.shipping_address.street }} <br/>
+{{ order.shipping_address.city }} <br/>
 {{ order.shipping_address.postcode }}
 
 <h3>
-    Contact Details:
+  Contact Details:
 </h3>
-Email: {{ order.email }}
+Email: {{ order.email }} <br/>
 Phone: {{ order.phone }}
 
 <h2>Order Details:</h2>
 
 <table>
-    <thead>
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Total Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for item in order.order_items %}
     <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total Price</th>
+      <td>{{ item.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.total_price }}</td>
     </tr>
-    </thead>
-    <tbody>
-    {% for item in order.order_items %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.total_price }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
+  {% endfor %}
+  </tbody>
 </table>
 </body>
 </html>

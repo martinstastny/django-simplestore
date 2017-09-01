@@ -1,6 +1,11 @@
 import uuid
+
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
 class CustomUserManager(BaseUserManager):
@@ -28,7 +33,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=False, unique=True)
     created = models.DateField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=False)
-    surname = models.CharField(max_length=100, blank=False, verbose_name="Last Name")
+    surname = models.CharField(
+        max_length=100,
+        blank=False,
+        verbose_name="Last Name"
+    )
     slug = models.SlugField(blank=False)
     updated = models.DateField(auto_now=True)
     is_active = models.BooleanField(default=True)

@@ -1,11 +1,17 @@
 from django import template
-from simplestore.cart.mixins import get_cart
+
+from simplestore.cart.utils import get_cart
 
 register = template.Library()
 
 
 @register.inclusion_tag('cart_counter.html', takes_context=True)
 def cart_counter(context):
+    """
+    Return total count of items in bag.
+    :param context: context
+    :return: number
+    """
     request = context.get('request')
     cart = get_cart(request)
     qty = None

@@ -3,33 +3,33 @@
 {% load thumbnail %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <article class="product-detail">
-                <section class="col-sm-12 col-md-5 col-md-push-1">
-                    <figure>
-                        <img class="img-responsive full-width" src="{% thumbnail object.image 460x690 crop %}" alt="">
-                    </figure>
-                </section>
-                <section class="col-sm-12 col-md-4 col-md-push-2">
-                    <hgroup class="product-detail-head">
-                        <h1>{{ object.name }}</h1>
-                        <h4 class="product-detail-head__price">${{ object.price|floatformat }}</h4>
-                    </hgroup>
-                    <p class="product-detail__desc">{{ object.content }}</p>
-                    <form method="post" action="{% url "cart:add" object.pk %}">
-                        {% csrf_token %}
-                        <div class="product-quantity">
-                            {{ form.quantity.errors }}
-{#                            {{ form.quantity.label_tag }}#}
-                            <p>Quantity:</p>
-                            {{ form.quantity }}
-                        </div>
-                        <button type="submit" class="btn btn-default full-width btn-buy"><i
-                                class="fa fa-shopping-bag" aria-hidden="true"></i> &nbsp;Add to bag</button>
-                    </form>
-                </section>
-            </article>
-        </div>
+  <div class="container">
+    <div class="row">
+      <article class="product-detail">
+        <section class="col-sm-12 col-md-5 col-md-push-1">
+          <figure>
+            <img class="img-responsive full-width" src="{% thumbnail object.image 460x690 crop %}" alt="">
+          </figure>
+        </section>
+        <section class="col-sm-12 col-md-4 col-md-push-2">
+          <hgroup class="product-detail-head">
+            <h1>{{ object.name }}</h1>
+            <h4 class="product-detail-head__price">${{ object.price|floatformat }}</h4>
+          </hgroup>
+          <p class="product-detail__desc">{{ object.content }}</p>
+          <form method="post" action="{% url "cart:add" object.pk %}">
+            {% csrf_token %}
+            <div class="product-quantity">
+              {{ form.quantity.errors }}
+              <p>Quantity:</p>
+              {{ form.quantity }}
+            </div>
+            <button type="submit" class="btn btn-default full-width btn-buy">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i> &nbsp;Add to bag
+            </button>
+          </form>
+        </section>
+      </article>
     </div>
+  </div>
 {% endblock %}

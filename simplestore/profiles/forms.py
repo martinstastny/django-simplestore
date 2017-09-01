@@ -1,10 +1,22 @@
 from django import forms
+
 from .models import Profile
+
 
 class RegistrationForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.widgets.EmailInput)
-    password1 = forms.CharField(widget=forms.PasswordInput(), label="Password", min_length=8)
-    password2 = forms.CharField(widget=forms.PasswordInput(), label="Password confirmation", min_length=8)
+
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(),
+        label="Password",
+        min_length=8
+    )
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(),
+        label="Password confirmation",
+        min_length=8
+    )
 
     class Meta:
         model = Profile

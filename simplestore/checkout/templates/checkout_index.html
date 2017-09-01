@@ -4,65 +4,59 @@
 {% crispy delivery_form delivery_form.helper %}
 
 {% block content %}
-    <div class="container">
+  <div class="container">
 
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">
-                    <h2>Checkout</h2>
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header">
+          <h2>Checkout</h2>
         </div>
-
-        <div class="row">
-            <form action="{{ request.path }}" method="post" novalidate>
-                {% csrf_token %}
-                <div class="col-sm-12 col-md-4">
-                    <div class="well">
-                        <legend>Shipping Details</legend>
-                        {{ customer_order_form|crispy }}
-                        {{ shipping_address_form|crispy }}
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 ">
-                    <div class="well">
-                        <legend>Delivery methods</legend>
-                        {{ delivery_method_form|crispy }}
-                    </div>
-                    <div class="well">
-                        <legend>Payment</legend>
-{#                        {{ payment_form|crispy }}#}
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4 pull-right">
-                    <div class="well">
-                        <legend>Order Review</legend>
-                        {% for cart_item in cart.items.all %}
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="{% url "products:detail" cart_item.product.slug %}">
-                                        <img src="{% thumbnail cart_item.product.image 50x50 crop %}">
-                                    </a>
-                                </div>
-                                <div class="media-body text-right">
-                                    <h5 class="media-heading">{{ cart_item.product.name }}</h5>
-                                    <strong>Quantity:</strong> {{ cart_item.quantity }} <br/>
-                                    <strong>Total Price:</strong> {{ cart_item.total_price|floatformat }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <br/>
-                        <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
-                        <br/>
-                    </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Place my order</button>
-
-                </div>
-
-            </form>
-        </div>
-
+      </div>
     </div>
+
+    <div class="row">
+      <form action="{{ request.path }}" method="post" novalidate>
+        {% csrf_token %}
+        <div class="col-sm-12 col-md-4">
+          <div class="well">
+            <legend>Shipping Details</legend>
+            {{ customer_order_form|crispy }}
+            {{ shipping_address_form|crispy }}
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 ">
+          <div class="well">
+            <legend>Delivery methods</legend>
+            {{ delivery_method_form|crispy }}
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 pull-right">
+          <div class="well">
+            <legend>Order Review</legend>
+            {% for cart_item in cart.items.all %}
+              <div class="media">
+                <div class="media-left">
+                  <a href="{% url "products:detail" cart_item.product.slug %}">
+                    <img src="{% thumbnail cart_item.product.image 50x50 crop %}">
+                  </a>
+                </div>
+                <div class="media-body text-right">
+                  <h5 class="media-heading">{{ cart_item.product.name }}</h5>
+                  <strong>Quantity:</strong> {{ cart_item.quantity }} <br/>
+                  <strong>Total Price:</strong> {{ cart_item.total_price|floatformat }}
+                </div>
+              </div>
+            {% endfor %}
+            <br/>
+            <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
+            <br/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Place my order</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
 {% endblock %}

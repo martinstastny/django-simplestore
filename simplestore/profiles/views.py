@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from simplestore.cart.mixins import get_cart
+from simplestore.cart.utils import get_cart
 from simplestore.checkout.models.order import Order
 from .forms import RegistrationForm, LoginForm
 from .models import Profile
@@ -36,8 +36,17 @@ class RegistrationFormView(FormView):
     def form_valid(self, form):
         self.profile = form.save()
         self.request.session['user_cart'] = self.request.session.session_key
-        user = authenticate(email=self.profile.email, password=self.request.POST['password1'])
-        messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully logged in.')
+
+        user = authenticate(
+            email=self.profile.email,
+            password=self.request.POST['password1']
+        )
+
+        messages.add_message(
+            self.request, messages.SUCCESS,
+            'You were successfully logged in.'
+        )
+
         login(self.request, user)
         return super(RegistrationFormView, self).form_valid(form)
 
@@ -85,11 +94,14 @@ class AuthenticationForm(FormView):
         if user is not None and user.is_active:
             self.request.session['user_cart'] = self.request.session.session_key
             login(self.request, user)
+
             if cart is not None:
                 cart.user = Profile.objects.get(id=user.id)
                 cart.save()
-            messages.add_message(self.request, messages.SUCCESS, 'You were sucessfully logged in.')
+                messages.add_message(self.request, messages.SUCCESS, 'You were successfully logged in.')
+
             return super(AuthenticationForm, self).form_valid(form)
+
         else:
             response = super(AuthenticationForm, self).form_invalid(form)
             messages.add_message(self.request, messages.WARNING, 'Wrong email or password. Please try again')

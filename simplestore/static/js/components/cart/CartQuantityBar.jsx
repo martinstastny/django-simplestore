@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 
 export default class CartQuantityBar extends React.Component {
@@ -33,16 +33,19 @@ export default class CartQuantityBar extends React.Component {
   render() {
     return (
       <div className="btn-group">
-        <button type="button" className="btn btn-default btn-xs" onClick={this.decreaseQty}><i className="fa fa-minus"/>
+        <button type="button" className="btn btn-default btn-xs" onClick={this.decreaseQty}>
+          <i className="fa fa-minus"/>
         </button>
         <input
           readOnly="true"
-          id="qty" type="text" className="pull-left cart_item_quantity" min="1" value={this.state.value}
+          id="qty" type="text" className="pull-left cart_item_quantity" min="1"
+          value={this.state.value}
           onChange={this.props.onChange} ref={(input) => {
           this.textInput = input;
         }}
         />
-        <button type="button" className="btn btn-default btn-xs" onClick={this.increaseQty}><i className="fa fa-plus"/>
+        <button type="button" className="btn btn-default btn-xs" onClick={this.increaseQty}>
+          <i className="fa fa-plus"/>
         </button>
       </div>
     );

@@ -10,7 +10,6 @@ from simplestore.products.models.product import Product
 from .address import Address
 from .delivery import Delivery
 
-
 # Orders Statuses
 ORDER_STATUS_CHOICES = (
     ('created', 'Created'),
@@ -20,6 +19,7 @@ ORDER_STATUS_CHOICES = (
     ('canceled', 'Cancelled'),
 )
 
+
 class Order(models.Model):
     uuid = models.UUIDField(default=uuid4, unique=True, editable=False)
     slug = models.UUIDField(default=uuid4, unique=True, editable=False)
@@ -28,20 +28,29 @@ class Order(models.Model):
     full_name = models.CharField(max_length=120)
     email = models.EmailField()
     phone = models.CharField(max_length=120, null=True, blank=True)
-    status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=120, default='Created')
+    status = models.CharField(
+        choices=ORDER_STATUS_CHOICES,
+        max_length=120,
+        default='Created'
+    )
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',
-                                         null=True)
-    delivery_method = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING, related_name='delivery_method',
-                                        null=True)
-
-    # payment_method = models.ForeignKey(Payment, on_delete=models.DO_NOTHING, related_name='payment_method', null=True)
+    shipping_address = models.ForeignKey(
+        Address,
+        on_delete=models.DO_NOTHING,
+        related_name='shipping_address',
+        null=True
+    )
+    delivery_method = models.ForeignKey(
+        Delivery,
+        on_delete=models.DO_NOTHING,
+        related_name='delivery_method',
+        null=True
+    )
 
     class Meta:
         ordering = ['-created_at']
 
-    @property
     def get_short_uuid(self):
         uuid = str(self.uuid).split('-')
         return "{0}-{1}".format(uuid[0], uuid[1])
@@ -50,7 +59,8 @@ class Order(models.Model):
         return self.cart.items.all()
 
     def get_absolute_url(self):
-        return reverse('checkout:order-confirmation', kwargs={'slug': str(self.slug)})
+        return reverse('checkout:order-confirmation',
+            kwargs={'slug': str(self.slug)})
 
     def create_order_items(self):
         cart_items = self.cart.items.all()
@@ -77,12 +87,12 @@ class Order(models.Model):
 
     def get_serialized_data(self):
         return {
-            'id': self.get_short_uuid,
+            'short_uuid': self.get_short_uuid(),
             'email': self.email,
             'full_name': self.full_name,
             'phone': self.phone,
             'status': self.status,
-            'shipping_address': self.shipping_address.get_serialized_data(),
+            'shipping_address': self.shipping_address,
             'order_items': self.get_serialized_items(),
         }
 
@@ -91,11 +101,23 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.DO_NOTHING)
-    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.DO_NOTHING)
+    order = models.ForeignKey(
+        Order,
+        related_name='items',
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        Product,
+        related_name='order_items',
+        on_delete=models.DO_NOTHING
+    )
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
 
     def get_total_price(self):
         return Decimal(self.price) * Decimal(self.quantity)

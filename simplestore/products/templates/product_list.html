@@ -2,25 +2,24 @@
 {% load thumbnail %}
 
 {% block content %}
-    <div class="container">
-        <div class="row products-row">
-            <ul class="product-list">
-                {% for object in object_list %}
-                    <li class="product-list__item col-xs-6 col-md-4">
-                        <a href="{% url "products:detail" object.slug %}">
-                            {% if object.image %}
-                                <img class="b-lazy img-responsive full-w"
-                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                     data-src="{% thumbnail object.image 360x480 crop %}"
-                                     alt="{{ object.name }}">
-                            {% endif %}
-                            <h2>{{ object.name }}</h2>
-                            <span class="product-list__item__price">${{ object.price }}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+  <div class="container">
+    <div class="row products-row">
+      <ul class="product-list">
+        {% for object in object_list %}
+          <li class="product-list__item col-xs-6 col-md-4">
+            <a href="{% url "products:detail" object.slug %}">
+              {% if object.image %}
+                <img class="b-lazy img-responsive full-w"
+                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                     data-src="{% thumbnail object.image 360x480 crop %}"
+                     alt="{{ object.name }}">
+              {% endif %}
+              <h2>{{ object.name }}</h2>
+              <span class="product-list__item__price">${{ object.price }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-
+  </div>
 {% endblock %}

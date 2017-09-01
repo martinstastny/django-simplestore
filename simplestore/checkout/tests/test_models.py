@@ -1,10 +1,10 @@
 import datetime
 
+from django.test import TestCase
+
 from simplestore.cart.models import Cart, CartItem
 from simplestore.checkout.models.order import Order
-from django.test import TestCase
 from simplestore.products.models.product import Product
-
 from simplestore.profiles.models import Profile
 
 
@@ -24,12 +24,19 @@ class TestOrderModels(TestCase):
         cls.test_product.save()
 
         # Testing cart
-        cls.cart = Cart(created=datetime.datetime.now(), updated=datetime.datetime.now())
+        cls.cart = Cart(
+            created=datetime.datetime.now(),
+            updated=datetime.datetime.now()
+        )
         cls.cart.save()
 
         # Testing Cart Items
-        cls.cart_item = CartItem(cart=cls.cart, product=cls.test_product, quantity=1,
-                                 date_added=datetime.datetime.now())
+        cls.cart_item = CartItem(
+            cart=cls.cart,
+            product=cls.test_product,
+            quantity=1,
+            date_added=datetime.datetime.now()
+        )
         cls.cart_item.save()
 
         # Testing Profile

@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/1.10.5/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os , sys
+import os
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
-
-# Append Apps Folder to PYTHONPATH
-sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -38,9 +37,9 @@ INSTALLED_APPS = (
     'storages',
     'rest_framework',
     'webpack_loader',
-    'simplestore.products',
-    'simplestore.cart.apps.CartConfig',
-    'simplestore.checkout',
+    'simplestore.products.apps.AppConfig',
+    'simplestore.cart.apps.AppConfig',
+    'simplestore.checkout.apps.AppConfig',
     'simplestore.api',
 )
 
@@ -117,7 +116,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'loaders' : [
+            'loaders': [
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
                 'django.template.loaders.eggs.Loader',
@@ -126,7 +125,6 @@ TEMPLATES = [
     },
 ]
 
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -134,7 +132,7 @@ STATICFILES_DIRS = (
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'bundles/dev/', # must end with slash
+        'BUNDLE_DIR_NAME': 'bundles/dev/',  # must end with slash
         'STATS_FILE': os.path.join(PROJECT_ROOT, 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
@@ -163,7 +161,7 @@ FILER_DEBUG = True
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES' : (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
@@ -172,8 +170,6 @@ REST_FRAMEWORK = {
     )
 }
 
-STRIPE_PUBLIC_API_KEY = 'pk_live_XCIy73JPF0V2aT9uasOVV1Qm'
-
 EMAIL_ADMIN = 'test@martinstastny.cz'
 
 EMAIL_HOST = 'smtp.gmail.com'
@@ -181,12 +177,3 @@ EMAIL_HOST_USER = 'test@martinstastny.cz'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-
-# CELERY
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Europe/Prague'
