@@ -25,6 +25,7 @@ class CartView(TemplateView):
             'cart': cart,
             'cart_items': items
         })
+
         return context
 
 
@@ -37,18 +38,11 @@ class RemoveCartItemView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
-        return super(RemoveCartItemView, self).delete(
-            self.request,
-            *args,
-            **kwargs
-        )
+        return super(RemoveCartItemView, self).delete(self.request, *args, **kwargs)
 
     def get_object(self, *args, **kwargs):
         cart = get_cart(self.request)
-        return CartItem.objects.get(
-            cart=cart,
-            product_id=self.kwargs['product_id']
-        )
+        return CartItem.objects.get(cart=cart, product_id=self.kwargs['product_id'])
 
 
 class UpdateCartItemView(FormView):
@@ -82,10 +76,7 @@ class AddToCartView(FormView):
         quantity = form.cleaned_data['quantity']
 
         cart = get_cart(self.request, create=True)
-        cart_item, cart_item_created = CartItem.objects.update_or_create(
-            cart=cart,
-            product=product
-        )
+        cart_item, cart_item_created = CartItem.objects.update_or_create(cart=cart, product=product)
 
         # If Cart item object has not been created  , amend quantity.
         if cart_item_created is False:

@@ -30,25 +30,25 @@ class CartDetailView(APIView):
 
 
 class CartUpdateDeleteView(APIView):
-    def get_object(self, cart_id):
+    def get_object(self, id):
         """
         Cart update view 
         """
         try:
             cart = get_cart(self.request)
-            return cart.items.get(pk=cart_id)
+            return cart.items.get(pk=id)
         except CartItem.DoesNotExist:
             raise Http404
 
-    def patch(self, request, product_id):
-        item = self.get_object(product_id)
+    def patch(self, request, id, *args, **kwargs):
+        item = self.get_object(id)
         serializer = serializers.CartItemSerializer(item, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def delete(self, product_id):
-        item = self.get_object(product_id)
+    def delete(self, request, id):
+        item = self.get_object(id)
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
