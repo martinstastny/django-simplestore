@@ -48,6 +48,12 @@ const localConfig = {
         NODE_ENV: JSON.stringify('development'),
       },
     }),
+    new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery',
+      'jQuery': 'jquery',
+      '$': 'jquery'
+    }),
     new BundleTracker({ filename: './webpack-stats.json' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

@@ -35,6 +35,12 @@ const prodConfig = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      'window.jQuery': 'jquery',
+      'window.$': 'jquery',
+      'jQuery': 'jquery',
+      '$': 'jquery'
+    }),
     new webpack.DefinePlugin({
       DEBUG: false,
       'process.env': {
