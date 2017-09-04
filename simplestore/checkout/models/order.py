@@ -8,6 +8,7 @@ from django.urls import reverse
 from simplestore.cart.models import Cart
 from simplestore.products.models.product import Product
 from .address import Address
+from .delivery import Delivery
 
 # Orders Statuses
 ORDER_STATUS_CHOICES = (
@@ -31,6 +32,8 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
     shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',
+        null=True)
+    delivery_method = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING, related_name='delivery_method',
         null=True)
 
     class Meta:

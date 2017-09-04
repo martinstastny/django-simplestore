@@ -26,7 +26,7 @@
     <div id="navbar-main" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
-          <li><a href="{% url 'profiles:logout' %}">Logout</a></li>
+          <li><a href="{% url 'profiles:logout' %}">Logout <i class="fa fa-user" aria-hidden="true"></i></a></li>
           <li><a href="{% url 'profiles:detail' %}"><span class="visible-xs-inline">Account</span><i class="fa fa-user" aria-hidden="true"></i></a></li>
         {% else %}
           <li><a href="{% url 'profiles:login' %}"><span class="visible-xs-inline">Account</span><i class="fa fa-user" aria-hidden="true"></i></a></li>
