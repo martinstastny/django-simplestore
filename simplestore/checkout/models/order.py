@@ -8,7 +8,6 @@ from django.urls import reverse
 from simplestore.cart.models import Cart
 from simplestore.products.models.product import Product
 from .address import Address
-from .delivery import Delivery
 
 # Orders Statuses
 ORDER_STATUS_CHOICES = (
@@ -28,25 +27,11 @@ class Order(models.Model):
     full_name = models.CharField(max_length=120)
     email = models.EmailField()
     phone = models.CharField(max_length=120, null=True, blank=True)
-    status = models.CharField(
-        choices=ORDER_STATUS_CHOICES,
-        max_length=120,
-        default='Created'
-    )
+    status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=120, default='Created')
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
-    shipping_address = models.ForeignKey(
-        Address,
-        on_delete=models.DO_NOTHING,
-        related_name='shipping_address',
-        null=True
-    )
-    delivery_method = models.ForeignKey(
-        Delivery,
-        on_delete=models.DO_NOTHING,
-        related_name='delivery_method',
-        null=True
-    )
+    shipping_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, related_name='shipping_address',
+        null=True)
 
     class Meta:
         ordering = ['-created_at']
@@ -59,18 +44,13 @@ class Order(models.Model):
         return self.cart.items.all()
 
     def get_absolute_url(self):
-        return reverse('checkout:order-confirmation',
-            kwargs={'slug': str(self.slug)})
+        return reverse('checkout:order-confirmation', kwargs={'slug': str(self.slug)})
 
     def create_order_items(self):
         cart_items = self.cart.items.all()
         for item in cart_items:
-            OrderItem.objects.create(
-                order=self,
-                product=item.product,
-                price=item.product.price,
-                quantity=item.quantity,
-            )
+            OrderItem.objects.create(order=self, product=item.product, price=item.product.price,
+                quantity=item.quantity)
 
     def get_serialized_items(self):
         order_items = []
@@ -101,23 +81,11 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(
-        Order,
-        related_name='items',
-        on_delete=models.CASCADE
-    )
-    product = models.ForeignKey(
-        Product,
-        related_name='order_items',
-        on_delete=models.DO_NOTHING
-    )
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.DO_NOTHING)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    total_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0
-    )
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def get_total_price(self):
         return Decimal(self.price) * Decimal(self.quantity)

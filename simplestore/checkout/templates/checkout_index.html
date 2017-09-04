@@ -27,13 +27,6 @@
 
         <div class="col-sm-12 col-md-4 ">
           <div class="well">
-            <legend>Delivery methods</legend>
-            {{ delivery_method_form|crispy }}
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4 pull-right">
-          <div class="well">
             <legend>Order Review</legend>
             {% for cart_item in cart.items.all %}
               <div class="media">
@@ -53,6 +46,9 @@
             <p class="text-right"><strong>Subtotal</strong> {{ cart.price_subtotal|floatformat }}</p>
             <br/>
           </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 pull-right">
           <button type="submit" class="btn btn-primary btn-lg btn-block">Place my order</button>
         </div>
       </form>

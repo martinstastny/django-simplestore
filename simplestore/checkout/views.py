@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.views.generic import DetailView, TemplateView
 
 from simplestore.cart.utils import get_cart
-from .forms import CustomerOrderForm, ShippingAddressForm, DeliveryMethodForm
+from .forms import CustomerOrderForm, ShippingAddressForm
 from .models.order import Order
 
 
@@ -40,7 +40,6 @@ class CheckoutOrderCreateView(TemplateView):
         return {
             'customer_order_form': CustomerOrderForm(data),
             'shipping_address_form': ShippingAddressForm(data),
-            'delivery_method_form': DeliveryMethodForm(data),
         }
 
     def create_order(self):
@@ -48,11 +47,9 @@ class CheckoutOrderCreateView(TemplateView):
 
         order = forms['customer_order_form'].save(commit=False)
         shipping_address = forms['shipping_address_form'].save()
-        delivery_method = forms['delivery_method_form'].cleaned_data['delivery_method']
 
         order.cart = self.cart
         order.shipping_address = shipping_address
-        order.delivery_method = delivery_method
 
         if self.request.user.is_authenticated():
             order.user = self.request.user

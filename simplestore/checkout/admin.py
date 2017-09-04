@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from .models.address import Address
-from .models.delivery import Delivery
 from .models.order import Order, OrderItem
 
 
@@ -15,10 +14,6 @@ class AddressAdmin(admin.ModelAdmin):
     model = Address
 
 
-class DeliveryAdmin(admin.ModelAdmin):
-    model = Delivery
-
-
 class OrderAdmin(admin.ModelAdmin):
     model = Order
     readonly_fields = (
@@ -28,11 +23,9 @@ class OrderAdmin(admin.ModelAdmin):
         'email',
         'shipping_address',
         'phone',
-        'delivery_method',
     )
     inlines = [OrderItemInline]
 
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Address, AddressAdmin)
-admin.site.register(Delivery, DeliveryAdmin)

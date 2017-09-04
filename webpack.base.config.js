@@ -19,7 +19,7 @@ baseConfig.config = {
   cache: true,
   context: path.resolve(__dirname, STATIC_ROOT),
   entry: {
-    main: 'js/main.jsx',
+    main: 'js/main.js',
   },
   output: {
     path: path.resolve(__dirname, baseConfig.paths.BUNDLE_ROOT_DEV),
@@ -40,6 +40,7 @@ baseConfig.config = {
       path.resolve(STATIC_ROOT),
       path.join(STATIC_ROOT, 'js'),
       path.join(STATIC_ROOT, 'sass'),
+      path.join(__dirname, "node_modules"),
       path.join(STATIC_ROOT, 'css'),
       'node_modules',
       'bower_components',
@@ -61,7 +62,7 @@ baseConfig.config = {
         loader: 'file-loader',
       },
     ],
-  },
+  }
 };
 
 const config = Object.assign({}, baseConfig);
