@@ -166,11 +166,9 @@ class CartViewsTests(TestCase):
         cart.session_key = session.session_key
         cart.save()
 
-        cart_item = self._create_testing_cart_item(cart_instance=cart,
-            product_instance=self.test_product)
+        cart_item = self._create_testing_cart_item(cart_instance=cart, product_instance=self.test_product)
 
-        response = self.client.post(
-            reverse('cart:update', kwargs={'pk': cart_item.pk}),
+        response = self.client.post(reverse('cart:update', kwargs={'pk': cart_item.pk}),
             data={'cart_item_quantity': '2'}, follow=True
         )
 
@@ -182,18 +180,14 @@ class CartViewsTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(cart_item.quantity, 2)
-        self.assertEqual(cart_item.total_price,
-            Decimal(cart_item.quantity * cart_item.product.price))
-        self.assertEqual(messages[0].tags, 'success',
-            'Message type should return success type')
-        self.assertEqual(messages[0].message,
-            'Product quantity has been updated.')
+        self.assertEqual(cart_item.total_price, Decimal(cart_item.quantity * cart_item.product.price))
+        self.assertEqual(messages[0].tags, 'success', 'Message type should return success type')
+        self.assertEqual(messages[0].message, 'Product quantity has been updated.')
 
     def test_amending_quantity_on_existing_item(self):
         session = self.client.session
 
-        request = self.client.post(
-            reverse('cart:add', kwargs={'product_id': self.test_product.id}),
+        request = self.client.post(reverse('cart:add', kwargs={'product_id': self.test_product.id}),
             data={'quantity': 1}, follow=True)
         request.session = session
         request.user = AnonymousUser()
