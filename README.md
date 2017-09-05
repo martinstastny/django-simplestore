@@ -4,7 +4,7 @@ Simple and tested app that can be taken as a starting point for extending and bu
  
 This project was created for learning / demo purposes.
 
-Demo and Preview
+Demo
 ========
 
  - Demo is hosted on free Heroku account.
