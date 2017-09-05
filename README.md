@@ -1,7 +1,5 @@
 # django-simplestore [![CircleCI](https://circleci.com/gh/martinstastny/django-simplestore.svg?style=svg)](https://circleci.com/gh/martinstastny/django-simplestore) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/042bb2f744884d00961e6dcbecd915f6)](https://www.codacy.com/app/martinstastny/django-simple-eccomerce?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=martinstastny/django-simple-eccomerce&amp;utm_campaign=Badge_Coverage) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/042bb2f744884d00961e6dcbecd915f6)](https://www.codacy.com/app/martinstastny/django-simple-eccomerce?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=martinstastny/django-simple-eccomerce&amp;utm_campaign=Badge_Grade)
 
-About
-======== 
 Simple and tested app that can be taken as a starting point for extending and building custom ecommerce site with Python / Django.
  
 This project was created for learning / demo purposes.
