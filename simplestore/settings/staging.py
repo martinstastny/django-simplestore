@@ -33,6 +33,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_REGION_NAME = 'eu-west-2'
-AWS_STORAGE_BUCKET_NAME = 'django-simple-store.herokuapp.com'
+AWS_STORAGE_BUCKET_NAME = 'static.appstaging.online'
 AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_KEY')
