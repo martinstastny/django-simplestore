@@ -11,7 +11,7 @@ baseConfig.paths = {
   BUNDLE_ROOT_DEV: path.join(STATIC_ROOT, 'bundles/dev/'),
   BUNDLE_ROOT_PROD: path.join(STATIC_ROOT, 'bundles/prod/'),
   STATIC_URL_DEV: 'http://localhost:8001/static/bundles/dev/',
-  STATIC_URL_PROD: 'https://static.appstaging.online', //https://s3-eu-west-1.amazonaws.com/django-simple-store.herokuapp.com
+  STATIC_URL_PROD: 'https://static.appstaging.online/', //https://s3-eu-west-1.amazonaws.com/django-simple-store.herokuapp.com
   SERVER_URL: 'http://localhost:8001/', /* Your backend server url */
 };
 
