@@ -36,3 +36,4 @@ AWS_S3_REGION_NAME = 'eu-west-2'
 AWS_STORAGE_BUCKET_NAME = 'static.appstaging.online'
 AWS_ACCESS_KEY_ID = os.environ.get('S3_KEY')
 AWS_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_KEY')
+AWS_S3_CUSTOM_DOMAIN = 'static.appstaging.online'
