@@ -8,6 +8,11 @@ include webpack.local.config.js
 include webpack.prod.config.js
 include webpack-stats.json
 include requirements.txt
+recursive-include simplestore/templates *
+recursive-include simplestore/cart/templates *
+recursive-include simplestore/checkout/templates *
+recursive-include simplestore/products/templates *
+recursive-include simplestore/profiles/templates *
 recursive-include simplestore/static *
 recursive-exclude simplestore/static/bundles/ *
 recursive-exclude * *.pyc
