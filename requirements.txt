@@ -20,7 +20,7 @@ django-mptt==0.8.7
 django-polymorphic==1.0.2
 django-storages==1.5.2
 django-webpack-loader==0.4.1
-djangorestframework==3.6.3
+djangorestframework==3.11.2
 docutils==0.13.1
 easy-thumbnails==2.3
 flower==0.9.1
