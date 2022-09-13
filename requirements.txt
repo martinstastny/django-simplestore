@@ -23,7 +23,7 @@ django-webpack-loader==0.4.1
 djangorestframework==3.6.3
 docutils==0.13.1
 easy-thumbnails==2.3
-flower==0.9.1
+flower==1.2.0
 gunicorn==19.7.1
 idna==2.5
 ipython==5.1.0
